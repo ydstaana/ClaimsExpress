@@ -1,4 +1,4 @@
-<div class="container" ng-init="initializeData()" >
+<div class="container"  ng-init="initializeData()" >
 		<!-- <input ng-model="test">
 			{{test}} -->
 			
@@ -17,8 +17,11 @@
 					<td>Name <input type="text" ng-model ="claim.name"> </td>
 					<td>Email<input type="text" ng-model ="claim.email"> </td>
 					<td>Number<input type="text" ng-model ="claim.number"> </td>
-					<td> <button class="btn btn-primary" ng-click="toggleAdd()"> Add Contact </button> </td>
+					<td> <button class="btn btn-primary" ng-click="save()"> Add Contact </button> </td>
+					
+					{{claim.name}}
 					<tr>
+						
 					<tr ng-repeat="claim in allClaims">
 						<td> {{claim.name}} </td>
 						<td> {{claim.email}} </td>

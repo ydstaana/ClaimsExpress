@@ -17,7 +17,7 @@ angular.module("AppCtrl", [])
         // data initialization
         $scope.initializeData = function() {
             Claims.getAllClaims().then(function(results) {
-                $scope.getAllClaims = results;
+                $scope.allClaims = results;
             });
         };
 

@@ -16,12 +16,14 @@ mongoose.connection.on("open", function(ref) {
 
 // mongoose.connect('mongodb://node:node@novus.modulusmongo.net:27017/Iganiq8o');
 
-router.get('/api', (request, response) => {
-    response.status(200).send({message: 'Hello World!'})
-});
+// router.get('/api', (request, response) => {
+//     response.status(200).send({message: 'Hello World!'})
+// });
 
-app.use(bodyParser.urlencoded({ extended: true }));
+
 app.use(bodyParser.json());
+app.use(bodyParser.json({ type: "application/vnd.api+json" }));
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(express.static("public"));
 
@@ -49,29 +51,29 @@ router.get('/', function(req, res) {
 
 
 // for claims
-// router.route('/contactlist')
-// .post(function(req, res) {
+router.route('/contactlist')
+.post(function(req, res) {
 
-//         var claim = new Claim();      // create a new instance of the Bear model
-//         claim.name = req.body.name;  // set the bears name (comes from the request)
+        var claim = new Claim();      // create a new instance of the Bear model
+        claim.name = req.body.name;  // set the bears name (comes from the request)
 
-//         // save the bear and check for errors
-//         claim.save(function(err) {
-//             if (err)
-//                 res.send(err);
+        // save the bear and check for errors
+        claim.save(function(err) {
+            if (err)
+                res.send(err);
 
-//             res.json({ message: 'claim created!' });
-//         });
+            res.json({ message: 'claim created!' });
+        });
 
-//     })
-// .get(function(req, res) {
-//         db.contactlist.find(function(err, claims) {
-//             if (err)
-//                 res.send(err);
+    })
+.get(function(req, res) {
+        db.contactlist.find(function(err, claims) {
+            if (err)
+                res.send(err);
 
-//             res.json(claims);
-//         });
-//     });
+            res.json(claims);
+        });
+    });
 
 
 // const samp   = require('./backend/model/obj'); // for routing

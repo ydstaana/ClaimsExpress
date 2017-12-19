@@ -28,14 +28,17 @@
 // 	})
 // })
 
-var app = angular.module("myApp", ["ngRoute"]);
+var app = angular.module('myApp', ['ngRoute',  'AppCtrl',  'ClaimService']);
 
 app.config(["$routeProvider", "$locationProvider", function($routeProvider, $locationProvider){
     $routeProvider
-
     .when("/", {
-            templateUrl: "view/Claim.html"
+            templateUrl: "view/land.html"
         })
+    .when('/claimmngt', {
+                templateUrl : 'view/Claim.html',
+                controller  : 'AppCtrller'
+    })
     .otherwise({
 			redirectTo : "/"
 	})
