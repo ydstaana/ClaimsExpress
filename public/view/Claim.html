@@ -1,0 +1,29 @@
+<div class="container" ng-controller="AppCtrl">
+		<!-- <input ng-model="test">
+			{{test}} -->
+			
+					
+		<table class ="table">
+			<thead>
+				<tr>
+					<th> Name </th>
+					<th> Email </th>
+					<th> Number </th>
+					<th> Action </th>
+				</tr>
+			</thead>
+				<tbody>
+					<tr>
+					<td>Name <input type="text" ng-model ="contact.name"> </td>
+					<td>Email<input type="text" ng-model ="contact.email"> </td>
+					<td>Number<input type="text" ng-model ="contact.number"> </td>
+					<td> <button class="btn btn-primary" ng-click="addContact()"> Add Contact </button> </td>
+					<tr>
+					<tr ng-repeat="contact in contactlist">
+						<td> {{contact.name}} </td>
+						<td> {{contact.email}} </td>
+						<td>  {{contact.number}}</td>
+						
+					</tr>
+		</table>
+	</div>
