@@ -3,10 +3,13 @@ angular.module("MainAppRoute", [])
     .config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
         
         $routeProvider
-        
-            // .when('/', {
-            //     templateUrl : 'view/UserCtrl.html'
-            // })
+            .when('/', {
+                templateUrl : 'view/land.html'
+            })
+            .when('/claimmngt', {
+                templateUrl : 'view/Claim.html',
+                controller  : 'AppCtrller'
+            })
 
             // .when('/navigator', {
             //     templateUrl : 'views/Navigator.html',
@@ -23,10 +26,10 @@ angular.module("MainAppRoute", [])
             //     controller  : "PatientMngtController"
             // })
 
-            .when('/claimmngt', {
-                templateUrl : 'view/Claim.html',
-                controller  : 'AppCtrller'
-            })
+            // .when('/claimmngt', {
+            //     templateUrl : 'view/Claim.html',
+            //     controller  : 'AppCtrller'
+            // })
 
             // .when('/medicinemngt', {
             //     templateUrl : 'views/MedicineMngt.html',
@@ -42,4 +45,4 @@ angular.module("MainAppRoute", [])
 
         $locationProvider.html5Mode(true);
 
-    }]);
+    }])

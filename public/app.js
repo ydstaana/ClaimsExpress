@@ -28,17 +28,17 @@
 // 	})
 // })
 
-// // var app = angular.module("myApp", ["ngRoute",]);
+var app = angular.module("myApp", ["ngRoute"]);
 
-// // app.config(["$routeProvider", "$locationProvider", function($routeProvider, $locationProvider){
-// //     $routeProvider
+app.config(["$routeProvider", "$locationProvider", function($routeProvider, $locationProvider){
+    $routeProvider
 
-// //     .when("/", {
-// //             templateUrl: "view/Claim.html"
-// //         })
-// //     .otherwise({
-// // 			redirectTo : "/"
-// // 	})
+    .when("/", {
+            templateUrl: "view/Claim.html"
+        })
+    .otherwise({
+			redirectTo : "/"
+	})
 
-// // }])
+}])
 

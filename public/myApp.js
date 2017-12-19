@@ -1,1 +1,1 @@
-angular.module('myApp', ['ngRoute', 'MainAppRoute',  'AppCtrl',  'ClaimServices']);
+angular.module('myApp', ['ngRoute', 'MainAppRoute',  'AppCtrl',  'ClaimService'])

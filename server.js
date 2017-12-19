@@ -16,15 +16,19 @@ mongoose.connection.on("open", function(ref) {
 
 // mongoose.connect('mongodb://node:node@novus.modulusmongo.net:27017/Iganiq8o');
 
+router.get('/api', (request, response) => {
+    response.status(200).send({message: 'Hello World!'})
+});
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-app.use(express.static(__dirname + "/public"));
+app.use(express.static("public"));
 
 require('./app/routes/claimRoute')(app);
 
-app.get('*', function(req, res) {
-    res.sendFile(__dirname + '/public/index.html');
+app.all('*', function(req, res) {
+   res.sendFile('public/index.html', { root: __dirname });
 });
 
 
