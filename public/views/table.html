@@ -1,0 +1,24 @@
+<div>
+	<table class ="table">
+		<thead>
+			<tr>
+				<th> Name </th>
+				<th> License </th>
+				<th> Action </th>
+			</tr>
+		</thead>
+			<tbody>
+				<tr>
+					{{claim.name}}
+				<td>Name <input type="text" ng-model ="claim.name"> </td>
+				<td>License<input type="text" ng-model ="claim.license"> </td>
+				<td> <button class="btn btn-primary" ng-click="createClaim()"> Add Contact </button> </td>
+								
+				<tr ng-repeat="claim in claims">
+					<td> {{claim.name}} </td>
+					<td> {{claim.license}} </td>
+					
+				</tr>
+			</tbody>
+	</table>
+</div>

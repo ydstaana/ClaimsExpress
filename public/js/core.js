@@ -1,1 +1,1 @@
-angular.module('mainApp', ['ClaimsExpress', 'ClaimService']);
+angular.module('mainApp', ['MainCtrl', 'ClaimService','MainRouteProvider','LoginCtrl','LoginService']);
