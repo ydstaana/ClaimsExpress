@@ -2,29 +2,37 @@ angular.module('ClaimsExpress', [])
 
 .controller('mainController',function($scope, $http, Claims){
 	//get all claims after loading page
-	$scope.formData = {};
-	$http.get('/api/getAllClaims')
+	$scope.claim = {};
+	var refresh = function () {
+		$http.get('/api/getAllClaims')
 		.success(function(data) {
 			$scope.claims = data;	// claims in angular html file
+			$scope.claim = "";
 			console.log(data);
 		})
 		.error(function(data) {
 			console.log('Error: ' + data);
 		})
+	}
+
+	refresh();
 
 	//function to add claims
 	$scope.createClaim = function(){
 			
-				 //reset
+				// to services folder
 				Claims.create($scope.claim).success(function(data) {
 				$scope.claim = {};
 				$scope.claims = data;
 				console.log(data);
+				refresh();
 			})
 			.error(function(data) {
 				console.log('Error: ' + data);
 			});
 	}
+
+
 
 	// $scope.createTodo = function() {
 
