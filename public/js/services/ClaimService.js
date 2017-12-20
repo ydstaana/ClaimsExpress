@@ -6,6 +6,7 @@ angular.module('ClaimService', [])
 
     // super simple service
     // each function returns a promise object 
+    // function going to route
     .factory('Claims', function($http) {
         return {
             get : function() {

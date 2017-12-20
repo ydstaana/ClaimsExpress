@@ -1,6 +1,6 @@
 angular.module('ClaimsExpress', [])
 
-.controller('mainController',function($scope, $http){
+.controller('mainController',function($scope, $http, Claims){
 	//get all claims after loading page
 	$scope.formData = {};
 	$http.get('/api/getAllClaims')
@@ -14,10 +14,10 @@ angular.module('ClaimsExpress', [])
 
 	//function to add claims
 	$scope.createClaim = function(){
-		console.log($scope.claim);
-		$http.post('/api/addClaim', $scope.claim.name + $scope.claim.license)
-			.success(function(data) {
-				$scope.formData = {}; //reset
+			
+				 //reset
+				Claims.create($scope.claim).success(function(data) {
+				$scope.claim = {};
 				$scope.claims = data;
 				console.log(data);
 			})
@@ -25,6 +25,24 @@ angular.module('ClaimsExpress', [])
 				console.log('Error: ' + data);
 			});
 	}
+
+	// $scope.createTodo = function() {
+
+    //         // validate the formData to make sure that something is there
+    //         // if form is empty, nothing will happen
+    //         // people can't just hold enter to keep adding the same to-do anymore
+    //         if (!$.isEmptyObject($scope.formData)) {
+
+    //             // call the create function from our service (returns a promise object)
+    //             Todos.create($scope.formData)
+
+    //                 // if successful creation, call our get function to get all the new todos
+    //                 .success(function(data) {
+    //                     $scope.formData = {}; // clear the form so our user is ready to enter another
+    //                     $scope.todos = data; // assign our new list of todos
+    //                 });
+    //         }
+    //     };
 
 	$scope.deleteClaim = function(id){
 		$http.delete('/api/removeClaim/' + id)
