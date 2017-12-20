@@ -1,7 +1,7 @@
 <!doctype html>
 
 <!-- ASSIGN OUR ANGULAR MODULE -->
-<html ng-app="ClaimsExpress">
+<html ng-app="mainApp">
 <head>
     <!-- META -->
     <meta charset="utf-8">
@@ -14,26 +14,57 @@
     <!-- SPELLS -->
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script><!-- load jquery -->
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script><!-- load angular -->
-    <script src="app.js"></script>
+    <!-- <script src="app.js"></script> -->
+
+    <!-- CONTROLLERS -->
+    <script src="js/controllers/mainController.js"></script> <!-- load up our controller -->
+   
+    <!-- SERVICES -->
+    <script src="js/services/ClaimService.js"></script> <!-- load our todo service -->
+   
+    <script src="js/core.js"></script>
 
 </head>
 <!-- SET THE CONTROLLER AND GET ALL TODOS -->
 <body ng-controller="mainController">
     <div class="container">
-
         
         
+        <table class ="table">
+			<thead>
+				<tr>
+					<th> Name </th>
+					<th> License </th>
+					<th> Action </th>
+				</tr>
+			</thead>
+				<tbody>
+					<tr>
+						{{claim.name}}
+					<td>Name <input type="text" ng-model ="claim.name"> </td>
+					<td>License<input type="text" ng-model ="claim.license"> </td>
+					<td> <button class="btn btn-primary" ng-click="createClaim()"> Add Contact </button> </td>
+									
+					<tr ng-repeat="claim in claims">
+						<td> {{claim.name}} </td>
+						<td> {{claim.license}} </td>
+						
+					</tr>
+				</tbody>
+		</table>
 
         <!-- CLAIMS LIST -->
         <div id="claims-list" class="row">
             <div class="col-sm-4 col-sm-offset-4">
 
                 <!-- LOOP OVER THE TODOS IN $scope.todos -->
-                <div class="checkbox" ng-repeat="claim in claims">
+                <!-- <div class="checkbox" ng-repeat="claim in claims">
                     <label>
                         <input type="checkbox" > {{ claim.name }} {{claim.license}}
                     </label>
-                </div>
+                </div> -->
+
+                
 
             </div>
         </div>

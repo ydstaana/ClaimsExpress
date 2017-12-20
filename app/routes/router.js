@@ -1,7 +1,8 @@
+var Claim       = require('../models/ClaimSchema');
 module.exports = function(app) {
 
     var objectId       = require('mongodb').ObjectID;
-    var Claim       = require('../models/ClaimSchema');
+    
 
     app.get('/api/getAllClaims', (req,res) => {
     	Claim.find()
@@ -39,5 +40,9 @@ module.exports = function(app) {
             	res.send(claim);
         });
     })
+
+    app.get('*', function(req, res) {
+        res.sendfile('./public/index.html'); // load the single view file (angular will handle the page changes on the front-end)
+    });
 
 };
