@@ -28,8 +28,7 @@ export class ClaimEditComponent implements OnInit {
 
   updateClaim(id) {
     this.claimService.updateClaim(id, this.claim).then((result) => {
-      let id = result['_id'];
-      this.router.navigate(['/claim-details', id]);
+      this.router.navigate(['/claims']);
     }, (err) => {
       console.log(err);
     });

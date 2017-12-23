@@ -39,6 +39,7 @@ export class ClaimComponent implements OnInit {
   deleteClaim(id) {
     this.claimService.deleteClaim(id).then((result) => {
       this.router.navigate(['/claims']);
+      this.getClaimList();
     }, (err) => {
       console.log(err);
     });
