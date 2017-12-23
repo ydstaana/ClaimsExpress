@@ -9,18 +9,20 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let claim of claims">
-        <td>{{ claim.name }}</td>
+      <tr  *ngFor="let claim of claims">
+        <td a [routerLink]="['/claim-detail', claim._id]" class="btn btn-default btn-lg">{{ claim.name }}</td>
         <td>{{ claim.license }}</td>
-        <td></td>
+        <td> 
+          <button class="btn btn-secondary" (click)="deleteClaim(claim._id)">Delete</button>
+          <a class="btn btn-secondary" [routerLink]="['/claim-edit', claim._id]" >Edit </a>
+        </td>
       </tr>
     </tbody>
   </table>
 
-  
 </div>
 
-<h1>Claim Catalogue
+<h1>ADD CLAIM
   <a [routerLink]="['/claim-create']" class="btn btn-default btn-lg">
     <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
   </a>

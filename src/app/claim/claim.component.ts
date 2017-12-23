@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ClaimService } from '../claim.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-claim',
@@ -9,11 +10,22 @@ import { ClaimService } from '../claim.service';
 export class ClaimComponent implements OnInit {
 
   claims: any;
+  claim = {};
 
-  constructor(private claimService: ClaimService) { }
+  constructor(private route: ActivatedRoute, private router: Router, private claimService: ClaimService) { }
 
   ngOnInit() {
     this.getClaimList();
+    // this.getClaimDetail(this.route.snapshot.params['id']);
+  }
+
+  getClaimDetail(id) {
+    this.claimService.showClaim(id).then((res) => {
+      this.claim = res;
+      console.log(this.claim);
+    }, (err) => {
+      console.log(err);
+    });
   }
 
   getClaimList() {
@@ -24,4 +36,11 @@ export class ClaimComponent implements OnInit {
     });
   }
 
+  deleteClaim(id) {
+    this.claimService.deleteClaim(id).then((result) => {
+      this.router.navigate(['/claims']);
+    }, (err) => {
+      console.log(err);
+    });
+  }
 }
