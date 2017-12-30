@@ -3,13 +3,13 @@ import { Http, Headers } from '@angular/http';
 import 'rxjs/add/operator/map';
 
 @Injectable()
-export class ClaimService {
+export class UserService {
 
   constructor(private http: Http) { }
 
-  getAllClaims() {
+  verifyUser(user) {
     return new Promise((resolve, reject) => {
-      this.http.get('/api/claim')
+      this.http.get('/api/login/'+ user.username + "/" + user.password)
         .map(res => res.json())
         .subscribe(res => {
           resolve(res);
@@ -19,9 +19,21 @@ export class ClaimService {
     });
   }
 
-  showClaim(id) {
+  getAllUsers() {
     return new Promise((resolve, reject) => {
-        this.http.get('/api/claim/' + id)
+      this.http.get('/api/user')
+        .map(res => res.json())
+        .subscribe(res => {
+          resolve(res);
+        }, (err) => {
+          reject(err);
+        });
+    });
+  }
+
+  showUser(id) {
+    return new Promise((resolve, reject) => {
+        this.http.get('/api/user/' + id)
           .map(res => res.json())
           .subscribe(res => {
             resolve(res)
@@ -31,9 +43,9 @@ export class ClaimService {
     });
   }
 
-  saveClaim(data) {
+  saveUser(data) {
     return new Promise((resolve, reject) => {
-        this.http.post('/api/claim', data)
+        this.http.post('/api/user', data)
           .map(res => res.json())
           .subscribe(res => {
             resolve(res);
@@ -43,9 +55,9 @@ export class ClaimService {
     });
   }
 
-  updateClaim(id, data) {
+  updateUser(id, data) {
     return new Promise((resolve, reject) => {
-        this.http.put('/api/claim/'+id, data)
+        this.http.put('/api/user/'+id, data)
           .map(res => res.json())
           .subscribe(res => {
             resolve(res);
@@ -55,9 +67,9 @@ export class ClaimService {
     });
   }
 
-  deleteClaim(id) {
+  deleteUser(id) {
     return new Promise((resolve, reject) => {
-        this.http.delete('/api/claim/'+id)
+        this.http.delete('/api/user/'+id)
           .subscribe(res => {
             resolve(res);
           }, (err) => {

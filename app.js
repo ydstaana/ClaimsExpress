@@ -4,14 +4,15 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
-
+var session = require('express-session');
 mongoose.Promise = global.Promise;
 
 mongoose.connect('mongodb://root:root@ds159856.mlab.com:59856/claims')
   .then(() =>  console.log('connection successful'))
   .catch((err) => console.error(err));
 
-var claim = require('./routes/claim');
+var api = require('./routes/api');
+
 var app = express();
 
 app.use(logger('dev'));
@@ -19,7 +20,15 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({'extended':'false'}));
 app.use(express.static(path.join(__dirname, 'dist')));
 
-app.use('/claim', claim);
+//SET ROUTE FOR API
+app.use('/api', api);
+
+app.use(session({
+  secret: 'claims-express',
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: true }
+}));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -1,6 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { ClaimService } from './claim.service';
+import { UserService } from './user.service';
+import { LoginService } from './login.service';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
@@ -8,6 +10,7 @@ import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 import { ClaimComponent } from './claim/claim.component';
+import { LoginComponent } from './login/login.component';
 
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { ClaimCreateComponent } from './claim-create/claim-create.component';
@@ -15,7 +18,8 @@ import { ClaimDetailComponent } from './claim-detail/claim-detail.component';
 import { ClaimEditComponent } from './claim-edit/claim-edit.component'; // error 404
 
 const ROUTES = [
-  { path: '', redirectTo: 'claims', pathMatch: 'full' },
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: 'login', component: LoginComponent},
   { path: 'claims', component: ClaimComponent },
   { path: 'claim-detail/:id', component: ClaimDetailComponent },
   { path: 'claim-create', component: ClaimCreateComponent },
@@ -26,6 +30,7 @@ const ROUTES = [
   declarations: [
     AppComponent,
     ClaimComponent,
+    LoginComponent,
     ClaimCreateComponent,
     ClaimDetailComponent,
     ClaimEditComponent
@@ -36,7 +41,7 @@ const ROUTES = [
     HttpModule,
     RouterModule.forRoot(ROUTES)
   ],
-  providers: [ClaimService,  {provide: LocationStrategy, useClass: HashLocationStrategy}],
+  providers: [UserService, ClaimService,  {provide: LocationStrategy, useClass: HashLocationStrategy}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
