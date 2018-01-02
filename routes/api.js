@@ -8,7 +8,6 @@ var User = require('../models/UserSchema.js');
 /*-------------------USER----------------*/
 /* GET ALL Users */
 router.get('/user', function(req, res, next) {
-  console.log("adad")
    User.find(function (err, users) {
     if (err) return next(err);
     res.json(users);
@@ -17,7 +16,6 @@ router.get('/user', function(req, res, next) {
 
 /* GET SINGLE User BY ID */
 router.get('/user/:id', function(req, res, next) {
-  console.log("DITO")
   User.findById(req.params.id, function (err, post) {
     if (err) return next(err);
     res.json(post);
@@ -26,7 +24,7 @@ router.get('/user/:id', function(req, res, next) {
 
 
 
-/* GET SINGLE User BY ID */
+/* GET SINGLE User BY USERNAME PASSWORD */
 router.get('/login/:username/:password', function(req, res, next) {
   User.find({username: req.params.username,password:req.params.password}, function (err, post) {
     if (err) return next(err);
@@ -34,14 +32,6 @@ router.get('/login/:username/:password', function(req, res, next) {
   });
 });
 
-
-router.get('/user/:username&password', function(req, res, next) {
-  console.log("NOT")
-  User.find({username: req.params.username}, function (err, post) {
-    if (err) return next(err);
-    res.json(post);
-  });
-});
 
 /* SAVE User */
 router.post('/user', function(req, res, next) {
@@ -80,6 +70,17 @@ router.get('/claim', function(req, res, next) {
 /* GET SINGLE Claim BY ID */
 router.get('/claim/:id', function(req, res, next) {
   Claim.findById(req.params.id, function (err, post) {
+    if (err) return next(err);
+    res.json(post);
+  });
+});
+
+/*SEARCH FOR CLAIM*/
+router.get('/claim/search/:input', function(req, res, next) {
+  Claim.find({$or : [
+      {name: new RegExp(req.params.input, "i")},
+      {license: new RegExp(req.params.input, "i")},
+    ]}, function (err, post) {
     if (err) return next(err);
     res.json(post);
   });
