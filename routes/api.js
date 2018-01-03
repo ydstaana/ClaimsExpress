@@ -61,6 +61,7 @@ router.delete('/user/:id', function(req, res, next) {
 /*-------------------CLAIM----------------*/
 /* GET ALL Claims */
 router.get('/claim', function(req, res, next) {
+  
   Claim.find(function (err, claims) {
     if (err) return next(err);
     res.json(claims);
@@ -88,8 +89,11 @@ router.get('/claim/search/:input', function(req, res, next) {
 
 /* SAVE Claim */
 router.post('/claim', function(req, res, next) {
+  claimDate = new Date();
   Claim.create(req.body, function (err, post) {
     if (err) return next(err);
+    post.claimDate = claimDate; // when claim is created, adds a date field
+    // object.property = value;
     res.json(post);
   });
 });

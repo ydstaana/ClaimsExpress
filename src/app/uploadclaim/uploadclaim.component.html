@@ -1,0 +1,15 @@
+<section id="upload-data-panel">
+  <!-- <form (ngSubmit)="updateClaim(claim._id)" #claimForm="ngForm"> -->
+    <form (ngSubmit)= "uploadCSV()" #uploadForm="ngForm" id="upload-form" action="/uploadclaim" method="post" enctype="multipart/form-data" >
+        <fieldset>
+            <legend>Upload Data</legend>
+            <div>
+                <!-- The name here is important, and will be used later to reference the data -->
+                <input type="file" name="csvdata" accept="text/cvs">
+            </div>
+            <div>
+                <button type="submit" class="btn btn-success" [disabled]="!uploadForm.form.valid" value="Upload"> Upload </button> 
+            </div>
+        </fieldset>
+    </form>
+</section>
