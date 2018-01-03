@@ -3,6 +3,7 @@ var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
 var bodyParser = require('body-parser');
+var cookieParser = require('cookie-parser');
 var mongoose = require('mongoose');
 var session = require('express-session');
 mongoose.Promise = global.Promise;
@@ -15,6 +16,8 @@ var api = require('./routes/api');
 
 var app = express();
 
+app.use(cookieParser());
+app.use(session({secret: "claims-express"}))
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({'extended':'false'}));

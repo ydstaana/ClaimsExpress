@@ -3,6 +3,8 @@ var router = express.Router();
 var mongoose = require('mongoose');
 var Claim = require('../models/ClaimSchema.js');
 var User = require('../models/UserSchema.js');
+var Log = require('../models/LogSchema.js');
+var moment = require('moment');
 
 
 /*-------------------USER----------------*/
@@ -28,6 +30,8 @@ router.get('/user/:id', function(req, res, next) {
 router.get('/login/:username/:password', function(req, res, next) {
   User.find({username: req.params.username,password:req.params.password}, function (err, post) {
     if (err) return next(err);
+    req.session.currUser = post[0]._id;
+    req.session.currUserName = post[0].username;
     res.json(post);
   });
 });
@@ -90,6 +94,18 @@ router.get('/claim/search/:input', function(req, res, next) {
 router.post('/claim', function(req, res, next) {
   Claim.create(req.body, function (err, post) {
     if (err) return next(err);
+    /*Create log*/
+    var log = {
+      userId: req.session.currUser,
+      userName: req.session.currUserName,
+      message: " created a claim",
+      date: moment().format()
+    }
+
+    Log.create(log, function(err, logs) {
+      if(err) return next(err);
+    });
+
     res.json(post);
   });
 });
