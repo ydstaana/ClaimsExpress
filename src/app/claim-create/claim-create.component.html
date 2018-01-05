@@ -8,27 +8,23 @@
           <input type="text" class="form-control" [(ngModel)]="claim.policyID" name="policyID" required>
         </div>
         <div class="form-group">
-          <fieldset ngModelGroup="claim.insurer">
             <label for="name">Insured</label>
-            <input type="text" class="form-control" name = "lastName" required placeholder= "Last Name" ng-model="claim.insurer.lastName">
-            <input type="text" class="form-control"  name ="firstName" required placeholder= "First Name" ng-model="claim.insurer.firstName">
-            <input type="text" class="form-control"  name ="middleName"  required placeholder= "Middle Name" ng-model="claim.insurer.middleName">
-          </fieldset>
+           Last Name <input type="text" class="form-control" name = "lastName" required label="Last Name" [(ngModel)]="claim.lastName">
+           First Name <input type="text" class="form-control"  name ="firstName" required label="First Name" [(ngModel)]="claim.firstName">
+           Middle Name <input type="text" class="form-control"  name ="middleName"  required label="Middle Name" [(ngModel)]="claim.middleName">
           </div>
         <div class="form-group">
           <label for="name">Address</label>
           <input type="text" class="form-control" [(ngModel)]="claim.address" name="address" required>
         </div>
         <div class="form-group">
-          <fieldset ngModelGroup="claim.vehicle">
             <label for="name">Vehicle</label>
-            <input type="text" class="form-control" name="year" required placeholder="Year" ng-model="claim.vehicle.year">
-            <input type="text" class="form-control" name="make" required placeholder="Make" ng-model="claim.vehicle.make">
-            <input type="text" class="form-control" name="model" required placeholder="Model" ng-model="claim.vehicle.model">
-            <input type="text" class="form-control" name="motorNo" required placeholder="Motor No." ng-model="claim.vehicle.motorNo">
-            <input type="text" class="form-control" name="serialNo" required placeholder="Serial No." ng-model="claim.vehicle.serialNo">
-            <input type="text" class="form-control" name="orNo" required placeholder="OR/CR No." ng-model="claim.vehicle.orNo">    
-          </fieldset>
+            Year <input type="text" class="form-control" name="year" required label="Year" [(ngModel)]="claim.year">
+            Make <input type="text" class="form-control" name="make" required label="Make" [(ngModel)]="claim.make">
+            Model <input type="text" class="form-control" name="model" required label="Model" [(ngModel)]="claim.model">
+            Motor No.<input type="text" class="form-control" name="motorNo" required label="Motor No." [(ngModel)]="claim.motorNo">
+            Serial No.<input type="text" class="form-control" name="serialNo" required label="Serial No." [(ngModel)]="claim.serialNo">
+            OR/CR No.<input type="text" class="form-control" name="orNo" required label="OR/CR No." [(ngModel)]="claim.orNo">    
         </div>
         <div class="form-group">
           <label for="name">Date of Loss</label>
@@ -43,11 +39,9 @@
           <input type="text" class="form-control" [(ngModel)]="claim.natureOfLoss" name="natureOfLoss" required>
         </div>
         <div class="form-group">
-          <fieldset ngModelGroup ="claim.settlement">
             <label for="name">Settlement</label>
-            <input type="text" class="form-control"  name="dateOfSettlement" required placeholder="Date Of Settlement" ng-model="claim.settlement.dateOfSettlement">
-            <input type="text" class="form-control"  name="amount" required placeholder="Amount" ng-model="claim.settlement.amount">
-          </fieldset>
+            Date of Settlement<input type="text" class="form-control"  name="dateOfSettlement" required label="Date Of Settlement" [(ngModel)]="claim.dateOfSettlement">
+            Amount<input type="text" class="form-control"  name="amount" required label="Amount" [(ngModel)]="claim.amount">
         </div>
         <div class="form-group">
           <button type="submit" class="btn btn-success" [disabled]="!claimForm.form.valid">Save</button>

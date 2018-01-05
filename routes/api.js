@@ -77,10 +77,11 @@ router.get('/claim', function(req, res, next) {
 router.get('/claim/:id', function(req, res, next) {
   Claim.findById(req.params.id, function (err, post) {
     if (err) return next(err);
+    console.log(post);
     var log = {
       userId: req.session.currUser,
       userName: req.session.currUserName,
-      message: " viewed claim " + post[0]._id,
+      message: " viewed claim " + post._id,
       date: moment().format()
     }
     Log.create(log, function(err, logs) {
