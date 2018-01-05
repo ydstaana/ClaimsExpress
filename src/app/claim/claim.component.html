@@ -4,14 +4,16 @@
     <thead>
       <tr>
         <th>Name</th>
-        <th>License</th>
+        <th>Address</th>
+        <th>Claim Date</th>
         <th>Action</th>
       </tr>
     </thead>
     <tbody>
       <tr  *ngFor="let claim of claims">
-        <td a [routerLink]="['/claim-detail', claim._id]" class="btn btn-default btn-lg">{{ claim.name }}</td>
-        <td>{{ claim.license }}</td>
+        <td a [routerLink]="['/claim-detail', claim._id]" class="btn btn-default btn-lg">{{ claim.lastName + ", " + claim.firstName + " " + claim.middleName }} </td>
+        <td>{{ claim.address }}</td>
+        <td>{{ claim.claimDate }}</td>
         <td> 
           <button class="btn btn-secondary" (click)="deleteClaim(claim._id)">Delete</button>
           <a class="btn btn-secondary" [routerLink]="['/claim-edit', claim._id]" >Edit </a>
