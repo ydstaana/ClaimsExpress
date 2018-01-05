@@ -34,6 +34,7 @@ export class ClaimCreateComponent implements OnInit {
 
   saveClaim() {
     this.claimService.saveClaim(this.claim).then((result) => {
+      console.log(this.claim);
       this.router.navigate(['/claims']);
     }, (err) => {
       console.log(err);

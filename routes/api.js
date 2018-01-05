@@ -32,6 +32,7 @@ router.get('/login/:username/:password', function(req, res, next) {
     if (err) return next(err);
     req.session.currUser = post[0]._id;
     req.session.currUserName = post[0].username;
+    console.log(req.session.currUserName);
     res.json(post);
   });
 });
@@ -65,6 +66,7 @@ router.delete('/user/:id', function(req, res, next) {
 /*-------------------CLAIM----------------*/
 /* GET ALL Claims */
 router.get('/claim', function(req, res, next) {
+  
   Claim.find(function (err, claims) {
     if (err) return next(err);
     res.json(claims);
@@ -75,6 +77,15 @@ router.get('/claim', function(req, res, next) {
 router.get('/claim/:id', function(req, res, next) {
   Claim.findById(req.params.id, function (err, post) {
     if (err) return next(err);
+    var log = {
+      userId: req.session.currUser,
+      userName: req.session.currUserName,
+      message: " viewed claim " + post[0]._id,
+      date: moment().format()
+    }
+    Log.create(log, function(err, logs) {
+      if(err) return next(err);
+    });
     res.json(post);
   });
 });
@@ -94,7 +105,6 @@ router.get('/claim/search/:input', function(req, res, next) {
 router.post('/claim', function(req, res, next) {
   Claim.create(req.body, function (err, post) {
     if (err) return next(err);
-    /*Create log*/
     var log = {
       userId: req.session.currUser,
       userName: req.session.currUserName,
@@ -105,7 +115,6 @@ router.post('/claim', function(req, res, next) {
     Log.create(log, function(err, logs) {
       if(err) return next(err);
     });
-
     res.json(post);
   });
 });
@@ -126,4 +135,13 @@ router.delete('/claim/:id', function(req, res, next) {
   });
 });
 
+/*-------------------LOGS----------------*/
+
+router.get('/logs', function(req, res, next) {
+  
+  Log.find(function (err, logs) {
+    if (err) return next(err);
+    res.json(logs);
+  });
+});
 module.exports = router;

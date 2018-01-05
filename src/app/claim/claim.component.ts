@@ -44,4 +44,6 @@ export class ClaimComponent implements OnInit {
       console.log(err);
     });
   }
+
+  
 }

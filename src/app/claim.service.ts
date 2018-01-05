@@ -66,4 +66,8 @@ export class ClaimService {
     });
   }
 
+  uploadCSV(){
+    console.log("uploading");
+  }
+
 }
