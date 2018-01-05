@@ -1,8 +1,10 @@
 var mongoose = require('mongoose')
 
 var LogSchema = new mongoose.Schema({
-	userId : String,
-	userName : String,
+	user: {
+		type : mongoose.Schema.Types.ObjectId,
+		ref: 'User'
+	},
 	message : String,
 	date : String
 });
