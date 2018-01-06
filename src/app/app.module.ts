@@ -15,7 +15,8 @@ import { LoginComponent } from './login/login.component';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { ClaimCreateComponent } from './claim-create/claim-create.component';
 import { ClaimDetailComponent } from './claim-detail/claim-detail.component';
-import { ClaimEditComponent } from './claim-edit/claim-edit.component'; // error 404
+import { ClaimEditComponent } from './claim-edit/claim-edit.component';
+import { UserCreateComponent } from './user-create/user-create.component'; // error 404
 
 const ROUTES = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -23,7 +24,8 @@ const ROUTES = [
   { path: 'claims', component: ClaimComponent },
   { path: 'claim-detail/:id', component: ClaimDetailComponent },
   { path: 'claim-create', component: ClaimCreateComponent },
-  { path: 'claim-edit/:id', component: ClaimEditComponent }
+  { path: 'claim-edit/:id', component: ClaimEditComponent },
+  { path: 'user-create', component: UserCreateComponent }
 ];
 
 @NgModule({
@@ -33,7 +35,8 @@ const ROUTES = [
     LoginComponent,
     ClaimCreateComponent,
     ClaimDetailComponent,
-    ClaimEditComponent
+    ClaimEditComponent,
+    UserCreateComponent
   ],
   imports: [
     BrowserModule,
