@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ClaimService } from '../claim.service';
 import { ActivatedRoute, Router } from '@angular/router';
+// import { csv } from '@angular/common';
 
+// var session = require('express-session');
+
+// const csv = require('csvtojson')
 @Component({
   selector: 'app-claim',
   templateUrl: './claim.component.html',
@@ -11,6 +15,7 @@ export class ClaimComponent implements OnInit {
 
   claims: any;
   claim = {};
+  // String filecsv = "";
 
   constructor(private route: ActivatedRoute, private router: Router, private claimService: ClaimService) { }
 
@@ -45,5 +50,10 @@ export class ClaimComponent implements OnInit {
     });
   }
 
-  
+  uploadClaim(filecsv) {
+    this.claimService.uploadClaim(filecsv);
+    };
 }
+
+  
+

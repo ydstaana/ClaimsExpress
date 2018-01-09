@@ -29,3 +29,8 @@
     <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
   </a>
 </h1>
+<h1>
+<!-- <input id="upload-input" type="file" name="uploads[]" multiple="multiple"></br> -->
+<input type="file" [(ngModel)]="filecsv" accept="csv/*">
+<button class="btn btn-secondary" (click)="uploadClaim(filecsv)">Upload</button>
+</h1>
