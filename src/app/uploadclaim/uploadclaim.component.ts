@@ -21,9 +21,9 @@ export class UploadclaimComponent implements OnInit {
   //   });
   // }
 
-  uploadCSV() {
-    this.claimService.uploadCSV()
-  }
+  // uploadCSV() {
+  //   this.claimService.uploadCSV()
+  // }
 
   
 

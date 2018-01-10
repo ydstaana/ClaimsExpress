@@ -66,8 +66,17 @@ export class ClaimService {
     });
   }
 
-  uploadCSV(){
+  uploadClaim(filecsv){
     console.log("uploading");
+    return new Promise((resolve, reject) => {
+        this.http.post('/api/claim', filecsv)
+          .map(res => res.json())
+          .subscribe(res => {
+            resolve(res);
+          }, (err) => {
+            reject(err);
+          });
+    });
   }
 
 }

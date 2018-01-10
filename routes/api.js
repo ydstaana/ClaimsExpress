@@ -6,6 +6,7 @@ var User = require('../models/UserSchema.js');
 var Organization = require('../models/OrgSchema.js');
 var Log = require('../models/LogSchema.js');
 var moment = require('moment');
+var csv = require('csvtojson');
 
 
 /*-------------------USER----------------*/
@@ -159,6 +160,23 @@ router.delete('/claim/:id', function(req, res, next) {
     res.json(post);
   });
 });
+/* UPLOAD Claim */
+router.post('claim', function(req,res, next){
+  const csvFilePath = filecsv.toString();
+    csv()
+    .fromFile(csvFilePath)
+    .on('json',(jsonObj)=>{
+        // combine csv header row and csv line to a json object
+        // jsonObj.a ==> 1 or 4
+        console.log(jsonObj);
+    })
+    .on('done',(error)=>{
+        console.log('end')
+    })
+
+})
+
+
 /*-------------------ORGANIZATION----------------*/
 /* GET ALL ORGANIZATION */
 router.get('/organization', function(req, res, next) {

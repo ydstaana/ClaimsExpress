@@ -6,6 +6,7 @@ var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var mongoose = require('mongoose');
 var session = require('express-session');
+
 mongoose.Promise = global.Promise;
 
 mongoose.connect('mongodb://root:root@ds159856.mlab.com:59856/claims')
