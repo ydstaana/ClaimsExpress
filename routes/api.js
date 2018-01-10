@@ -34,6 +34,7 @@ router.get('/login/:username/:password', function(req, res, next) {
     req.session.currUser = post._id;
     req.session.currUserName = post.username;
     req.session.currUserType = post.userType;
+    req.session.currOrganization = post.organization;
     console.log(req.session.currUserName);
     res.json(post);
   });
@@ -87,8 +88,8 @@ router.get('/claim/:id', function(req, res, next) {
     if (err) return next(err);
     console.log(post);
     var log = {
-      userId: req.session.currUser,
-      userName: req.session.currUserName,
+      user : req.session.currUser,
+      organization: req.session.currOrganization,
       message: " viewed claim " + post._id,
       date: moment().format()
     }
@@ -99,12 +100,22 @@ router.get('/claim/:id', function(req, res, next) {
   });
 });
 
-/*SEARCH FOR CLAIM*/
-router.get('/claim/search/:input', function(req, res, next) {
-  Claim.find({$or : [
-      {name: new RegExp(req.params.input, "i")},
-      {license: new RegExp(req.params.input, "i")},
-    ]}, function (err, post) {
+/*{$or : [
+      {lastName: new RegExp(req.params.input, "i")},
+      {motorNo: new RegExp(req.params.input, "i")}
+    ]}*/
+
+/*LOCAL SEARCH CLAIM GIVEN ID AND INPUT*/
+router.get('/claim/search/:id/:input', function(req, res, next) {
+  Claim.find({_id: req.params.id,$or: [{lastName: new RegExp(req.params.input, "i")}, {orNo: new RegExp(req.params.input, "i")}]}, function (err, post) {
+    if (err) return next(err);
+    res.json(post);
+  });
+});
+
+/*GLOBAL SEARCH CLAIM*/
+router.get('/claim/search/:id/:input', function(req, res, next) {
+  Claim.find({$or: [{lastName: new RegExp(req.params.input, "i")}, {orNo: new RegExp(req.params.input, "i")}]}, function (err, post) {
     if (err) return next(err);
     res.json(post);
   });
@@ -112,11 +123,13 @@ router.get('/claim/search/:input', function(req, res, next) {
 
 /* SAVE Claim */
 router.post('/claim', function(req, res, next) {
+  req.body.insurer = req.session.currUser;
   Claim.create(req.body, function (err, post) {
     if (err) return next(err);
     var log = {
-      user: req.session.currUser,
-      message: " created a claim",
+      user : req.session.currUser,
+      organization: req.session.currOrganization,
+      message: " created claim " + post._id,
       date: moment().format()
     }
 
@@ -198,7 +211,7 @@ router.delete('/organization/:id', function(req, res, next) {
 
 /*-------------------LOGS----------------*/
 
-router.get('/logs', function(req, res, next) {
+router.get('/user-logs', function(req, res, next) {
   switch(req.session.currUserType){
     case "ADMIN":
       Log.find()
@@ -208,14 +221,31 @@ router.get('/logs', function(req, res, next) {
       });
       break;
     case "ENCODER":
-      res.send("Encoder");
+      Log.find({user : req.session.currUser})
+      .populate('user')
+      .exec(function (err, logs) {
+        res.json(logs);
+      });
       break;
     case "ORGANIZER":
-      res.send("Organizer")
+      Log.find({user : req.session.currUser})
+      .populate('user')
+      .exec(function (err, logs) {
+        res.json(logs);
+      });
       break;
-
     default:
       res.send("Default");
   }
+});
+
+
+router.get('/org-logs', function(req, res, next) {
+  console.log(req.session.currOrganization)
+  Log.find({organization : req.session.currOrganization})
+    .populate('user')
+    .exec(function (err, logs) {
+      res.json(logs);
+    });
 });
 module.exports = router;

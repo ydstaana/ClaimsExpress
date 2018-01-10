@@ -12,7 +12,11 @@ var ClaimSchema = new mongoose.Schema({
     model: String,
     motorNo: Number,
     serialNo: Number,
-    orNo: Number
+    orNo: String,
+    insurer: {
+		type : mongoose.Schema.Types.ObjectId,
+		ref: 'User'
+	}
 
 });
 
