@@ -10,15 +10,15 @@ var moment = require('moment');
 //var csv = require('csvtojson'); 
 var multer = require('multer');
 var storage = multer.diskStorage({
-  // destination
-  destination: function (req, file, cb) {
-    cb(null, './uploads/')
-  },
-  filename: function (req, file, cb) {
-    cb(null, file.originalname);
+  destination: function (request, file, callback){
+    callback(null, 'uploads/');
+  }, 
+  filename: function(request, file, callback){
+    callback(null, file.originalname)
   }
-});
-var upload = multer({ storage: storage }).single('file');
+  });
+var upload =  multer({ storage: storage }).array("uploads", 12);
+        
 
 /*-------------------USER----------------*/
 /* GET ALL Users */
@@ -190,16 +190,9 @@ router.delete('/claim/:id', function(req, res, next) {
 */
 
 /*UPLOAD CLAIM */
-router.post('/claim/upload', function(req,res, next){
+router.post(  '/claim/upload', function(req,res, next){
   upload(req, res, function(err) {
-    if(err) {
-      console.log(err);
-      return res.status(422).send("error");
-    }
-    //console.log(req.file.path);
     console.log(req.files);
-    console.log(req.file);
-    return res.send("Upload complete");
   })
 })
 

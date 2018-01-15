@@ -1,4 +1,2 @@
-<form enctype="multipart/form-data" (ngSubmit) = "uploadClaim()">
-	<input type = "file" name = "claimFile" (change) = "fileChangeEvent($event)" multiple/>
-	<button type = "submit" >Submit</button>
-</form>
+<input type="file" (change)="fileChangeEvent($event)" placeholder="Upload file..." />
+<button type="button" (click)="upload()">Upload</button>

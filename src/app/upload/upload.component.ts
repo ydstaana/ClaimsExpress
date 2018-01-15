@@ -9,29 +9,35 @@ import { UploadService } from '../upload.service';
 })
 export class UploadComponent implements OnInit {
   
-  claimFile = null;
+  filesToUpload: Array<File>;
 
-  constructor(private uploadService: UploadService, private router: Router) { }
+  constructor(private uploadService: UploadService, private router: Router) { 
+    this.filesToUpload = [];
+  }
 
   ngOnInit() {
   }
 
-  uploadClaim(){
+  upload(){
     const formData : any = new FormData();
-    console.log(this.claimFile);
-    formData.append("claim", this.claimFile);
+    const files =  this.filesToUpload;
 
     console.log("form data variable : " + formData.toString());
 
+    for(var i = 0; i < files.length; i++) {
+      formData.append("uploads", files[i], files[i].name);
+    }
+    console.log(formData);
   	this.uploadService.uploadClaim(formData).then((result) => {
-      this.router.navigate(['/claims']);
+      //this.router.navigate(['/claims']);
     }, (err) => {
       console.log(err);
     });
   }
 
-  fileChangeEvent(fileInput : any) {
-    this.claimFile = fileInput.target;
-    console.log(fileInput.target);
-  }
+   fileChangeEvent(fileInput: any){
+      this.filesToUpload = <Array<File>> fileInput.target.files;
+    }
+
+  
 }
