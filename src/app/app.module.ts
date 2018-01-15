@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { ClaimService } from './claim.service';
 import { UserService } from './user.service';
+import { UploadService } from './upload.service';
 import { LoginService } from './login.service';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
@@ -16,7 +17,8 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { ClaimCreateComponent } from './claim-create/claim-create.component';
 import { ClaimDetailComponent } from './claim-detail/claim-detail.component';
 import { ClaimEditComponent } from './claim-edit/claim-edit.component';
-import { UserCreateComponent } from './user-create/user-create.component'; // error 404
+import { UserCreateComponent } from './user-create/user-create.component';
+import { UploadComponent } from './upload/upload.component';
 
 const ROUTES = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -25,6 +27,7 @@ const ROUTES = [
   { path: 'claim-detail/:id', component: ClaimDetailComponent },
   { path: 'claim-create', component: ClaimCreateComponent },
   { path: 'claim-edit/:id', component: ClaimEditComponent },
+  { path: 'claim-upload' , component: UploadComponent },
   { path: 'user-create', component: UserCreateComponent }
 ];
 
@@ -36,7 +39,8 @@ const ROUTES = [
     ClaimCreateComponent,
     ClaimDetailComponent,
     ClaimEditComponent,
-    UserCreateComponent
+    UserCreateComponent,
+    UploadComponent
   ],
   imports: [
     BrowserModule,
@@ -44,7 +48,7 @@ const ROUTES = [
     HttpModule,
     RouterModule.forRoot(ROUTES)
   ],
-  providers: [UserService, ClaimService,  {provide: LocationStrategy, useClass: HashLocationStrategy}],
+  providers: [UserService, ClaimService, UploadService, {provide: LocationStrategy, useClass: HashLocationStrategy}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
