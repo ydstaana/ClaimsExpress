@@ -10,15 +10,15 @@ var moment = require('moment');
 //var csv = require('csvtojson'); 
 var multer = require('multer');
 var storage = multer.diskStorage({
-  destination: function (request, file, callback){
-    callback(null, 'uploads/');
-  }, 
-  filename: function(request, file, callback){
-    callback(null, file.originalname)
+  // destination
+  destination: function (req, file, cb) {
+    cb(null, './uploads/')
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.originalname);
   }
-  });
-var upload =  multer({ storage: storage }).array("uploads", 12);
-        
+});
+var upload = multer({ storage: storage }).single('file');
 
 /*-------------------USER----------------*/
 /* GET ALL Users */
@@ -103,7 +103,7 @@ router.get('/claim/:id', function(req, res, next) {
       user : req.session.currUser,
       organization: req.session.currOrganization,
       message: " viewed claim " + post._id,
-      date: moment().format()
+      date: moment().format("L")
     }
     Log.create(log, function(err, logs) {
       if(err) return next(err);
@@ -190,11 +190,25 @@ router.delete('/claim/:id', function(req, res, next) {
 */
 
 /*UPLOAD CLAIM */
-router.post(  '/claim/upload', function(req,res, next){
-  upload(req, res, function(err) {
+router.post('/claim/upload', function(req,res, next){
+  upload.array(req, res, function(err) {
+    if(err) {
+      console.log(err);
+      return res.status(422).send("error");
+    }
+    //console.log(req.file.path);
+    console.log('files', req.files);
+    res.send(req.files);
     console.log(req.files);
+    console.log(req.file);
+    return res.send("Upload complete");
   })
 })
+
+// router.post("'/claim/upload'", upload.array("uploads[]", 12), function (req, res) {
+//   console.log('files', req.files);
+//   res.send(req.files);
+// });
 
 /*-------------------ORGANIZATION----------------*/
 /* GET ALL ORGANIZATION */
