@@ -6,6 +6,9 @@ var User = require('../models/UserSchema.js');
 var Organization = require('../models/OrgSchema.js');
 var Log = require('../models/LogSchema.js');
 var moment = require('moment');
+var jwt    = require('jsonwebtoken');
+var secret = "claims-express" 
+
 
 //var csv = require('csvtojson'); 
 var multer = require('multer');
@@ -21,6 +24,77 @@ var upload =  multer({ storage: storage }).array("uploads", 12);
         
 
 /*-------------------USER----------------*/
+/* GET SINGLE User BY USERNAME PASSWORD */
+router.get('/login/:username/:password', function(req, res, next) {
+  User.findOne({username: req.params.username}, function (err, user) {
+    if (err) return next(err);
+    
+    if(!user){
+      res.json({success: false, message: 'Auth failed. User not found'});
+    }
+    else{
+
+      if(user.password != req.params.password) {
+        res.json({success: false, message: 'Auth failed. Incorrect password'});
+      }
+      else{
+        
+        const payload = {
+          id : user._id,
+          userType : user.userType,
+          username : user.username,
+          organization: user.organization
+        }
+
+        var token = jwt.sign(payload, secret, {
+          expiresIn : 1440 // expires in 24 hours
+        });
+
+
+         res.json({
+            success: true,
+            message : "Token generated",
+            token : token
+         });
+      }
+    }
+  });
+});
+
+
+/*JWT Routes Middleware*/
+router.use(function(req, res, next) {
+
+  // check header or url parameters or post parameters for token
+  var token = req.body.token || req.query.token || req.headers['x-access-token'];
+
+  // decode token
+  if (token) {
+
+    // verifies secret and checks exp
+    jwt.verify(token, secret, function(err, decoded) {      
+      if (err) {
+        return res.json({ success: false, message: 'Failed to authenticate token.' });    
+      } else {
+        // if everything is good, save to request for use in other routes
+        req.decoded = decoded;
+        next();
+      }
+    });
+
+  } else {
+
+    // if there is no token
+    // return an error
+    return res.status(403).send({ 
+        success: false, 
+        message: 'No token provided.' 
+    });
+
+  }
+});
+
+
 /* GET ALL Users */
 router.get('/user', function(req, res, next) {
    User.find(function (err, users) {
@@ -39,18 +113,6 @@ router.get('/user/:id', function(req, res, next) {
 
 
 
-/* GET SINGLE User BY USERNAME PASSWORD */
-router.get('/login/:username/:password', function(req, res, next) {
-  User.findOne({username: req.params.username,password:req.params.password}, function (err, post) {
-    if (err) return next(err);
-    req.session.currUser = post._id;
-    req.session.currUserName = post.username;
-    req.session.currUserType = post.userType;
-    req.session.currOrganization = post.organization;
-    console.log(req.session.currUserName);
-    res.json(post);
-  });
-});
 
 
 /* SAVE User */
@@ -100,8 +162,8 @@ router.get('/claim/:id', function(req, res, next) {
     if (err) return next(err);
     console.log(post);
     var log = {
-      user : req.session.currUser,
-      organization: req.session.currOrganization,
+      user : req.decoded.id,
+      organization: req.decoded.organization,
       message: " viewed claim " + post._id,
       date: moment().format()
     }
@@ -111,11 +173,6 @@ router.get('/claim/:id', function(req, res, next) {
     res.json(post);
   });
 });
-
-/*{$or : [
-      {lastName: new RegExp(req.params.input, "i")},
-      {motorNo: new RegExp(req.params.input, "i")}
-    ]}*/
 
 /*LOCAL SEARCH CLAIM GIVEN ID AND INPUT*/
 router.get('/claim/search/:id/:input', function(req, res, next) {
@@ -135,12 +192,12 @@ router.get('/claim/search/:id/:input', function(req, res, next) {
 
 /* SAVE Claim */
 router.post('/claim', function(req, res, next) {
-  req.body.insurer = req.session.currUser;
+  req.body.insurer = req.decoded.id;
   Claim.create(req.body, function (err, post) {
     if (err) return next(err);
     var log = {
-      user : req.session.currUser,
-      organization: req.session.currOrganization,
+      user : req.decoded.id,
+      organization: req.decoded.organization,
       message: " created claim " + post._id,
       date: moment().format()
     }
@@ -249,7 +306,7 @@ router.delete('/organization/:id', function(req, res, next) {
 /*-------------------LOGS----------------*/
 
 router.get('/user-logs', function(req, res, next) {
-  switch(req.session.currUserType){
+  switch(req.decoded.userType){
     case "ADMIN":
       Log.find()
       .populate('user')
@@ -258,14 +315,14 @@ router.get('/user-logs', function(req, res, next) {
       });
       break;
     case "ENCODER":
-      Log.find({user : req.session.currUser})
+      Log.find({user : req.decoded.id})
       .populate('user')
       .exec(function (err, logs) {
         res.json(logs);
       });
       break;
     case "ORGANIZER":
-      Log.find({user : req.session.currUser})
+      Log.find({user : req.decoded.id})
       .populate('user')
       .exec(function (err, logs) {
         res.json(logs);
@@ -278,11 +335,12 @@ router.get('/user-logs', function(req, res, next) {
 
 
 router.get('/org-logs', function(req, res, next) {
-  console.log(req.session.currOrganization)
-  Log.find({organization : req.session.currOrganization})
+  console.log(req.decoded.organization)
+  Log.find({organization : req.decoded.organization})
     .populate('user')
     .exec(function (err, logs) {
       res.json(logs);
     });
 });
+
 module.exports = router;
