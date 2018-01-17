@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ClaimService } from '../claim.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import moment from 'moment/src/moment';
 // import { csv } from '@angular/common';
 
 // var session = require('express-session');
