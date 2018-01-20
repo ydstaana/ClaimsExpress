@@ -119,14 +119,14 @@ router.get('/claim/:id', function(req, res, next) {
 
 /*LOCAL SEARCH CLAIM GIVEN ID AND INPUT*/
 router.get('/claim/search/:id/:input', function(req, res, next) {
-  Claim.find({_id: req.params.id,$or: [{lastName: new RegExp(req.params.input, "i")}, {orNo: new RegExp(req.params.input, "i")}]}, function (err, post) {
+  Claim.find({insurer: req.params.id,$or: [{lastName: new RegExp(req.params.input, "i")}, {orNo: new RegExp(req.params.input, "i")}]}, function (err, post) {
     if (err) return next(err);
     res.json(post);
   });
 });
 
 /*GLOBAL SEARCH CLAIM*/
-router.get('/claim/search/:id/:input', function(req, res, next) {
+router.get('/claim/search/:input', function(req, res, next) {
   Claim.find({$or: [{lastName: new RegExp(req.params.input, "i")}, {orNo: new RegExp(req.params.input, "i")}]}, function (err, post) {
     if (err) return next(err);
     res.json(post);
