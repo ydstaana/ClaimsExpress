@@ -12,6 +12,7 @@ export class UserService {
       this.http.get('/api/login/'+ user.username + "/" + user.password)
         .map(res => res.json())
         .subscribe(res => {
+          localStorage.setItem('token', res.token);
           resolve(res);
         }, (err) => {
           reject(err);
