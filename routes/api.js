@@ -66,7 +66,7 @@ router.get('/login/:username/:password', function(req, res, next) {
 router.use(function(req, res, next) {
 
   // check header or url parameters or post parameters for token
-  var token = req.body.token || req.params.token || req.headers['x-access-token'];
+  var token = req.body.token || req.params.token || req.headers['x-access-token'] || req.headers['authorization'];
 
   // decode token
   if (token) {
@@ -228,23 +228,6 @@ router.delete('/claim/:id', function(req, res, next) {
     res.json(post);
   });
 });
-
-/* UPLOAD Claim */
-/*router.post('claim', function(req,res, next){
-  const csvFilePath = filecsv.toString();
-    csv()
-    .fromFile(csvFilePath)
-    .on('json',(jsonObj)=>{
-        // combine csv header row and csv line to a json object
-        // jsonObj.a ==> 1 or 4
-        console.log(jsonObj);
-    })
-    .on('done',(error)=>{
-        console.log('end')
-    })
-
-})
-*/
 
 /*UPLOAD CLAIM */
 router.post('/claim/upload', function(req,res, next){
