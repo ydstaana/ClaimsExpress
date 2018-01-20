@@ -15,7 +15,11 @@ export class ClaimService {
 
   getAllClaims() {
     return new Promise((resolve, reject) => {
-      this.http.get('/api/claim')
+      let headers = new Headers();
+      headers.append('Content-Type', 'application/json');
+      let authToken = localStorage.getItem('token');
+      headers.append('Authorization', authToken);
+      this.http.get('/api/claim', {headers : headers})
         .map(res => res.json())
         .subscribe(res => {
           // res.claimDate.moment("MMMM dd YYYY");
@@ -33,7 +37,11 @@ export class ClaimService {
 
   showClaim(id) {
     return new Promise((resolve, reject) => {
-        this.http.get('/api/claim/' + id)
+        let headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        let authToken = localStorage.getItem('token');
+        headers.append('Authorization', authToken);
+        this.http.get('/api/claim/' + id, {headers : headers})
           .map(res => res.json())
           .subscribe(res => {
             resolve(res)
@@ -65,7 +73,11 @@ export class ClaimService {
 
   saveClaim(data) {
     return new Promise((resolve, reject) => {
-        this.http.post('/api/claim', data)
+        let headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        let authToken = localStorage.getItem('token');
+        headers.append('Authorization', authToken);
+        this.http.post('/api/claim', data, {headers : headers})
           .map(res => res.json())
           .subscribe(res => {
             resolve(res);
@@ -77,7 +89,11 @@ export class ClaimService {
 
   updateClaim(id, data) {
     return new Promise((resolve, reject) => {
-        this.http.put('/api/claim/'+id, data)
+        let headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        let authToken = localStorage.getItem('token');
+        headers.append('Authorization', authToken);
+        this.http.put('/api/claim/'+id, data, {headers : headers})
           .map(res => res.json())
           .subscribe(res => {
             resolve(res);
@@ -89,7 +105,11 @@ export class ClaimService {
 
   deleteClaim(id) {
     return new Promise((resolve, reject) => {
-        this.http.delete('/api/claim/'+id)
+        let headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        let authToken = localStorage.getItem('token');
+        headers.append('Authorization', authToken);
+        this.http.delete('/api/claim/'+id, {headers :headers})
           .subscribe(res => {
             resolve(res);
           }, (err) => {
@@ -101,6 +121,7 @@ export class ClaimService {
   uploadClaim(filecsv){
     console.log("uploading");
     return new Promise((resolve, reject) => {
+      
         this.http.post('/api/claim', filecsv)
           .map(res => res.json())
           .subscribe(res => {

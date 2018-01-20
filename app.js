@@ -1,4 +1,5 @@
 var express = require('express');
+var router = express.Router();
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
@@ -7,7 +8,10 @@ var cookieParser = require('cookie-parser');
 var mongoose = require('mongoose');
 var session = require('express-session');
 
+
 mongoose.Promise = global.Promise;
+
+
 
 mongoose.connect('mongodb://root:root@ds159856.mlab.com:59856/claims')
   .then(() =>  console.log('connection successful'))
@@ -23,8 +27,14 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({'extended':'false'}));
 app.use(express.static(path.join(__dirname, 'dist')));
-//create a cors middleware
+
+
+
+
+//SET ROUTE FOR API
 app.use('/api', api);
+
+//create a cors middleware
 
 app.use(function(req, res, next) {
 //set headers to allow cross origin request.
@@ -35,7 +45,8 @@ app.use(function(req, res, next) {
 });
 
 
-//SET ROUTE FOR API
+
+
 
 app.use(session({
   secret: 'claims-express',
