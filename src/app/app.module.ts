@@ -7,7 +7,7 @@ import { LoginService } from './login.service';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
-
+import { FileSelectDirective, FileDropDirective } from 'ng2-file-upload';
 
 import { AppComponent } from './app.component';
 import { ClaimComponent } from './claim/claim.component';
@@ -40,7 +40,8 @@ const ROUTES = [
     ClaimDetailComponent,
     ClaimEditComponent,
     UserCreateComponent,
-    UploadComponent
+    UploadComponent,
+    FileSelectDirective
   ],
   imports: [
     BrowserModule,

@@ -9,19 +9,20 @@ var moment = require('moment');
 var jwt    = require('jsonwebtoken');
 var secret = "claims-express" 
 
-
-//var csv = require('csvtojson'); 
 var multer = require('multer');
-var storage = multer.diskStorage({
-  // destination
-  destination: function (req, file, cb) {
-    cb(null, './uploads/')
-  },
-  filename: function (req, file, cb) {
-    cb(null, file.originalname);
-  }
-});
-var upload = multer({ storage: storage }).single('file');
+var storage = multer.diskStorage({ //multers disk storage settings
+        destination: function (req, file, cb) {
+            cb(null, './uploads/');
+        },
+        filename: function (req, file, cb) {
+            var datetimestamp = Date.now();
+            cb(null, file.fieldname + '-' + datetimestamp + '.' + file.originalname.split('.')[file.originalname.split('.').length -1]);
+        }
+    });
+
+    var upload = multer({ //multer settings
+                    storage: storage
+                }).single('file');
 
 /*-------------------USER----------------*/
 /* GET SINGLE User BY USERNAME PASSWORD */
@@ -94,7 +95,18 @@ router.use(function(req, res, next) {
   }
 });
 
-
+ /** API path that will upload the files */
+    router.post('/claim/upload', function(req, res) {
+        upload(req,res,function(err){
+            console.log(req.file);
+            if(err){
+                 res.json({error_code:1,err_desc:err});
+                 return;
+            }
+             res.json({error_code:0,err_desc:null});
+        });
+    });
+    
 /* GET ALL Users */
 router.get('/user', function(req, res, next) {
    User.find(function (err, users) {

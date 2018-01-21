@@ -8,6 +8,9 @@ export class UploadService {
 
   constructor(private http: Http) { }
 
+  getToken(){
+      return localStorage.getItem('token');
+  }
   uploadClaim(data) {
     return new Promise((resolve, reject) => {
         this.http.post('/api/claim/upload', data)

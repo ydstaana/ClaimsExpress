@@ -1,2 +1,9 @@
-<input type="file" (change)="fileChangeEvent($event)" placeholder="Upload file..." />
-<button type="button" (click)="upload()">Upload</button>
+<div class="form-group">
+   <label for="single">single</label>
+   <input type="file" class="form-control" name="single" ng2FileSelect [uploader]="uploader" />
+
+   <button type="button" class="btn btn-success btn-s"
+   (click)="uploader.uploadAll()" [disabled]="!uploader.getNotUploadedItems().length">
+    <span class="glyphicon glyphicon-upload"></span> Upload all
+	</button><br />                                  
+</div>
