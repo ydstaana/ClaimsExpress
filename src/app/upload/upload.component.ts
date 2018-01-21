@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UploadService } from '../upload.service';
+import { ClaimService } from '../claim.service';
 
 @Component({
   selector: 'app-upload',
@@ -10,8 +11,9 @@ import { UploadService } from '../upload.service';
 export class UploadComponent implements OnInit {
   
   filesToUpload: Array<File>;
+  fileData: String;
 
-  constructor(private uploadService: UploadService, private router: Router) { 
+  constructor(private uploadService: UploadService, private claimService: ClaimService, private router: Router) { 
     this.filesToUpload = [];
   }
 
@@ -29,11 +31,16 @@ export class UploadComponent implements OnInit {
     }
     console.log(formData);
   	this.uploadService.uploadClaim(formData).then((result) => {
-      //this.router.navigate(['/claims']);
+      // this.router.navigate(['/claims']);
     }, (err) => {
       console.log(err);
     });
   }
+
+  
+  uploadClaim() {
+    this.claimService.uploadClaim(this.fileData);
+  };
 
    fileChangeEvent(fileInput: any){
       this.filesToUpload = <Array<File>> fileInput.target.files;

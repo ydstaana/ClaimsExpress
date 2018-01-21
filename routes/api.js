@@ -245,6 +245,12 @@ router.post('/claim/upload', function(req,res, next){
   })
 })
 
+router.post('/csv', upload,function(req,res){
+    console.log("upload yay");
+    console.log(req.body) // req.body should be populated by request body
+    res.send('/dashboard');
+});
+
 // router.post("'/claim/upload'", upload.array("uploads[]", 12), function (req, res) {
 //   console.log('files', req.files);
 //   res.send(req.files);

@@ -75,9 +75,9 @@ export class ClaimComponent implements OnInit {
     });
   }
 
-  uploadClaim(filecsv) {
-    this.claimService.uploadClaim(filecsv);
-    };
+  // uploadClaim(filecsv) {
+  //   this.claimService.uploadClaim(filecsv);
+  //   };
 }
 
   
