@@ -9,8 +9,12 @@ var moment = require('moment');
 var jwt    = require('jsonwebtoken');
 var secret = "claims-express" 
 
+var fs = require('fs');
+
 var multer = require('multer');
+var result = "";
 var storage = multer.diskStorage({ //multers disk storage settings
+    
         destination: function (req, file, cb) {
             cb(null, './uploads/');
         },
@@ -21,7 +25,7 @@ var storage = multer.diskStorage({ //multers disk storage settings
     });
 
     var upload = multer({ //multer settings
-                    storage: storage
+                    storage: storage 
                 }).single('file');
 
 /*-------------------USER----------------*/
@@ -103,7 +107,12 @@ router.use(function(req, res, next) {
                  res.json({error_code:1,err_desc:err});
                  return;
             }
+            else{
+            fs.readFile(req.file.path, (err,data) => {
+              console.log(data);
+            })
              res.json({error_code:0,err_desc:null});
+            }
         });
     });
     
