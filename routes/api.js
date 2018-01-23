@@ -68,6 +68,14 @@ router.get('/login/:username/:password', function(req, res, next) {
   });
 });
 
+/* GET ALL ORGANIZATION */
+router.get('/organization', function(req, res, next) {
+  Organization.find(function (err, organizations) {
+    if (err) return next(err);
+    res.json(organizations);
+  });
+});
+
 
 /*JWT Routes Middleware*/
 router.use(function(req, res, next) {
@@ -304,13 +312,6 @@ router.post('/csv', upload,function(req,res){
 // });
 
 /*-------------------ORGANIZATION----------------*/
-/* GET ALL ORGANIZATION */
-router.get('/organization', function(req, res, next) {
-  Organization.find(function (err, organizations) {
-    if (err) return next(err);
-    res.json(organizations);
-  });
-});
 
 /* GET SINGLE Organization BY ID */
 router.get('/organization/:id', function(req, res, next) {

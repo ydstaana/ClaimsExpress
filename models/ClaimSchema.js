@@ -2,6 +2,7 @@ var mongoose = require('mongoose')
 
 var ClaimSchema = new mongoose.Schema({
 	claimDate:  { type: Date, default: Date.now },
+	policyID: Number,
 	lastName: String,
     firstName: String,
 	middleName: String,
@@ -12,7 +13,10 @@ var ClaimSchema = new mongoose.Schema({
     model: String,
     motorNo: String,
     serialNo: String,
-    orNo: String,
+	orNo: String,
+	situationOfLoss: String,
+	dateOfLoss: Date,
+	natureOfLoss: String,
     insurer: {
 		type : mongoose.Schema.Types.ObjectId,
 		ref: 'User'

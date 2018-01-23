@@ -21,11 +21,41 @@ export class UserService {
     });
   }
 
+  //  getAllClaims() {
+  //   return new Promise((resolve, reject) => {
+  //     let headers = new Headers();
+  //     headers.append('Content-Type', 'application/json');
+  //     let authToken = localStorage.getItem('token');
+  //     headers.append('Authorization', authToken);
+  //     this.http.get('/api/claim', {headers : headers})
+  //       .map(res => res.json())
+  //       .subscribe(res => {
+  //         // res.claimDate.moment("MMMM dd YYYY");
+  //         console.log(res);
+  //         for (var i in res) {
+  //           res[i].claimDate = moment(res[i].claimDate).format("L");
+  //           res[i].year = moment(res[i].year).format("YYYY");
+  //         }
+          
+  //         resolve(res);
+  //       }, (err) => {
+  //         reject(err);
+  //       });
+  //   });
+  // }
+
+
   getAllUsers() {
+    
     return new Promise((resolve, reject) => {
-      this.http.get('/api/user')
+      let headers = new Headers();
+      headers.append('Content-Type', 'application/json');
+      let authToken = localStorage.getItem('token');
+      headers.append('Authorization', authToken);
+      this.http.get('/api/user', {headers : headers})
         .map(res => res.json())
         .subscribe(res => {
+          console.log("EY EYEY" + res);
           resolve(res);
         }, (err) => {
           reject(err);
@@ -102,6 +132,21 @@ export class UserService {
       let authToken = localStorage.getItem('token');
       headers.append('Authorization', authToken);
       this.http.get('/api/org-logs', {headers : headers})
+        .subscribe(res => {
+          resolve(res);
+        }, (err) => {
+          reject(err);
+        });
+  });
+}
+
+getAllOrgs() {
+  return new Promise((resolve, reject) => {
+      let headers = new Headers();
+      headers.append('Content-Type', 'application/json');
+      let authToken = localStorage.getItem('token');
+      headers.append('Authorization', authToken);
+      this.http.get('/api/organization', {headers : headers})
         .subscribe(res => {
           resolve(res);
         }, (err) => {

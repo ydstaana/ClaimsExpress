@@ -6,6 +6,7 @@ import { UploadService } from './upload.service';
 import { LoginService } from './login.service';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { SelectModule } from 'angular2-select';
 import { HttpModule } from '@angular/http';
 import { FileSelectDirective, FileDropDirective } from 'ng2-file-upload';
 
@@ -44,12 +45,14 @@ const ROUTES = [
     UserCreateComponent,
     UploadComponent,
     FileSelectDirective,
-    DashboardComponent
+    DashboardComponent,
+    
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
+    SelectModule,
     RouterModule.forRoot(ROUTES)
   ],
   providers: [UserService, ClaimService, UploadService, {provide: LocationStrategy, useClass: HashLocationStrategy}],

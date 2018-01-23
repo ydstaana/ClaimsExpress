@@ -32,6 +32,15 @@ $(document).ready(function () {
         }, 50);
     });
 
+     $(document).ready(function(){
+            $('.i-checks').iCheck({
+                checkboxClass: 'icheckbox_square-green',
+                radioClass: 'iradio_square-green',
+            });
+        });
+
+
+
     // Close ibox function
     $('.close-link').on('click', function () {
         var content = $(this).closest('div.ibox');
