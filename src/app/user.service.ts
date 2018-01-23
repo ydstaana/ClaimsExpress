@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
+import { Router } from '@angular/router';
 import 'rxjs/add/operator/map';
 
 
 @Injectable()
 export class UserService {
 
-  constructor(private http: Http) { }
+  constructor(private http: Http, private router: Router) { }
 
   verifyUser(user) {
     return new Promise((resolve, reject) => {
@@ -14,6 +15,12 @@ export class UserService {
         .map(res => res.json())
         .subscribe(res => {
           localStorage.setItem('token', res.token);
+          if (res.token == undefined){
+            // do nothing
+          }
+          else{
+            this.router.navigate(['/claims']);
+          }
           resolve(res);
         }, (err) => {
           reject(err);

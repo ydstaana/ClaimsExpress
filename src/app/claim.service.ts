@@ -75,6 +75,7 @@ export class ClaimService {
     });
 
   }
+  
 
   saveClaim(data) {
     return new Promise((resolve, reject) => {

@@ -18,7 +18,7 @@ export class LoginComponent implements OnInit {
   	this.userService.verifyUser(this.user).then((res) => {
       if(Object.keys(res).length == 0) console.log("empty") 
       else{
-      	this.router.navigate(['/claims']);
+      	// this.router.navigate(['/claims']);
       }	
       
     }, (err) => {
