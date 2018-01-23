@@ -26,7 +26,7 @@
                             <li><a href="contacts.html">Contacts</a></li>
                             <li><a href="mailbox.html">Mailbox</a></li>
                             <li class="divider"></li>
-                            <li><a href="login.html">Logout</a></li>
+                            <li (click) = "logout()"><a href="#">Logout</a></li>
                         </ul>
                     </div>
                     <div class="logo-element">
@@ -48,8 +48,8 @@
                 <li>
                     <a a [routerLink]="['/claims']"><i class="fa fa-cloud-upload"></i> <span class="nav-label">Upload Claim</span>  </a>
                 </li>
-                <li>
-                    <a href="widgets.html"><i class="fa fa-sign-out"></i> <span class="nav-label">Logout</span></a>
+                <li (click) = "logout()">
+                    <a href="#"><i class="fa fa-sign-out"></i> <span class="nav-label">Logout</span></a>
                 </li>
                 
             </ul>
@@ -64,8 +64,8 @@
                         <li>
                             <span class="m-r-sm text-muted welcome-message">Welcome to MTR+</span>
                         </li>
-                        <li>
-                            <a href="login.html">
+                        <li (click) = "logout()">
+                            <a href="#">
                                 <i class="fa fa-sign-out"></i> Log out
                             </a>
                         </li>

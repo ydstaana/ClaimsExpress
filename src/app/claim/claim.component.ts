@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ClaimService } from '../claim.service';
+import { UserService } from '../user.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import moment from 'moment/src/moment';
 // import { csv } from '@angular/common';
@@ -21,7 +22,7 @@ export class ClaimComponent implements OnInit {
   
   // String filecsv = "";
 
-  constructor(private route: ActivatedRoute, private router: Router, private claimService: ClaimService) { }
+  constructor(private route: ActivatedRoute, private router: Router, private claimService: ClaimService, private userService: UserService) { }
 
   ngOnInit() {
     this.getClaimList();
@@ -75,9 +76,10 @@ export class ClaimComponent implements OnInit {
     });
   }
 
-  // uploadClaim(filecsv) {
-  //   this.claimService.uploadClaim(filecsv);
-  //   };
+  logout(){
+    this.userService.logout();
+    this.router.navigate(['/login']);
+  }
 }
 
   

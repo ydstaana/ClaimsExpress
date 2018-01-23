@@ -12,36 +12,23 @@ export class UserCreateComponent implements OnInit {
   userTypeOptions = [];
   orgOptions: any;
   option: {};
-  optionsArr = [];
+  orgOptionsArr = [];
+  orgOptionsArray = [];
+  orgs = {};
+  orgArr= [];
 
   constructor(private userService: UserService,) { }
 
   ngOnInit() {
       this.userTypeOptions = [
-        {value: 'ENCODER', label: 'ENCODER'},
-        {value: 'ADMIN', label: 'ADMIN'},
-        {value: 'ORGANIZATION', label: 'ORGANIZATION'},
+        {value: 'ENCODER', label: 'Encoder'},
+        {value: 'ADMIN', label: 'Admin'},
+        {value: 'ORGANIZATION', label: 'Organization'},
         
       ];
 
-      this.searchOrganizationsOptions();      
+      this.searchOrganizationsOptions();
   }
-
-  // getSearchClaims() {
-  //   this.claimService.getAllClaims().then((res) => {
-  //     this.claims = res;
-  //     this.claimService.searchClaim(this.input).then((res) => {
-  //       this.claims = res;
-  //     }, (err) => {
-  //       console.log(err);
-  //     });
-  //   }, (err) => {
-  //     console.log(err);
-  //   });
-   
-
-  // }
-
 
   //  var values = res[0];
   //       console.log(values+ "???")
@@ -56,7 +43,14 @@ export class UserCreateComponent implements OnInit {
 
    searchOrganizationsOptions(){
     this.userService.getAllOrgs().then((res) => {
-       console.log(res);
+      this.orgs = res;
+      Object.values(this.orgs).forEach((org) => {
+          // key: the name of the object key
+          // index: the ordinal position of the key within the object 
+          console.log(org)
+          this.orgOptionsArr.push({value : org["_id"], label : org["name"]});
+      });
+        
       }, (err) => {
         console.log(err);
     });
@@ -64,14 +58,6 @@ export class UserCreateComponent implements OnInit {
       
   };
 
-  // getClaimList() {
-  //   this.claimService.getAllClaims().then((res) => {
-  //     this.claims = res;
-  //   }, (err) => {
-  //     console.log(err);
-  //   });
-    
-  // }
 
   saveUser() {
     this.userService.saveUser(this.user).then((result) => {
@@ -81,6 +67,7 @@ export class UserCreateComponent implements OnInit {
     });
   }
 
+ 
 
 }
 

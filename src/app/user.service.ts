@@ -124,6 +124,7 @@ export class UserService {
         let authToken = localStorage.getItem('token');
         headers.append('Authorization', authToken);
         this.http.get('/api/user-logs', {headers : headers})
+          .map(res => res.json())
           .subscribe(res => {
             resolve(res);
           }, (err) => {
@@ -139,6 +140,7 @@ export class UserService {
       let authToken = localStorage.getItem('token');
       headers.append('Authorization', authToken);
       this.http.get('/api/org-logs', {headers : headers})
+        .map(res => res.json())
         .subscribe(res => {
           resolve(res);
         }, (err) => {
@@ -154,12 +156,18 @@ getAllOrgs() {
       let authToken = localStorage.getItem('token');
       headers.append('Authorization', authToken);
       this.http.get('/api/organization', {headers : headers})
+        .map(res => res.json())
         .subscribe(res => {
           resolve(res);
         }, (err) => {
           reject(err);
         });
   });
+}
+
+logout() {
+  localStorage.removeItem('token');
+  //localStorage.removeItem('currentUser');
 }
 
 }

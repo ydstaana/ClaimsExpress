@@ -76,6 +76,20 @@ router.get('/organization', function(req, res, next) {
   });
 });
 
+/* SAVE User */
+router.post('/user', function(req, res, next) {
+  console.log(req.body)
+  User.create(req.body, function (err, post) {
+    if (err) return next(err);
+    Organization.findByIdAndUpdate(post.organization,
+       { $push: { users: post._id }
+    }, function (err, org) {
+      if (err) return next(err);
+      console.log(org);
+    });
+    res.json(post);
+  });
+});
 
 /*JWT Routes Middleware*/
 router.use(function(req, res, next) {
@@ -170,20 +184,7 @@ router.get('/user/:id', function(req, res, next) {
 
 
 
-/* SAVE User */
-router.post('/user', function(req, res, next) {
-  console.log(req.body)
-  User.create(req.body, function (err, post) {
-    if (err) return next(err);
-    Organization.findByIdAndUpdate(post.organization,
-       { $push: { users: post._id }
-    }, function (err, org) {
-      if (err) return next(err);
-      console.log(org);
-    });
-    res.json(post);
-  });
-});
+
 
 /* UPDATE User */
 router.put('/user/:id', function(req, res, next) {
@@ -299,17 +300,6 @@ router.post('/claim/upload', function(req,res, next){
     return res.send("Upload complete");
   })
 })
-
-router.post('/csv', upload,function(req,res){
-    console.log("upload yay");
-    console.log(req.body) // req.body should be populated by request body
-    res.send('/dashboard');
-});
-
-// router.post("'/claim/upload'", upload.array("uploads[]", 12), function (req, res) {
-//   console.log('files', req.files);
-//   res.send(req.files);
-// });
 
 /*-------------------ORGANIZATION----------------*/
 
