@@ -7,7 +7,9 @@ var Organization = require('../models/OrgSchema.js');
 var Log = require('../models/LogSchema.js');
 var moment = require('moment');
 var jwt    = require('jsonwebtoken');
-var secret = "claims-express" 
+var secret = "claims-express";
+var csv=require('csvtojson');
+
 
 var fs = require('fs');
 
@@ -108,9 +110,33 @@ router.use(function(req, res, next) {
                  return;
             }
             else{
-            fs.readFile(req.file.path, (err,data) => {
-              console.log(data);
-            })
+            csv()
+              .fromFile(req.file.path)
+              .on('json', (jsonObj) =>{
+                jsonObj.insurer = req.decoded.id;
+                new Claim(jsonObj).save(function (err, post) {
+                  if (err) return err;
+                  var log = {
+                    user : req.decoded.id,
+                    organization: req.decoded.organization,
+                    message: " uploaded claim " + post._id,
+                    date: moment().format()
+                  }
+
+                  Log.create(log, function(err, logs) {
+                    Log.find()
+                    .populate('user')
+                    .exec(function (err, logs) {
+                      console.log(JSON.stringify(logs, null, "\t"))
+                    });
+                  });
+                  console.log(post);
+                });
+                
+              })
+              .on('done', (error) => {
+                console.log('end');
+              })
              res.json({error_code:0,err_desc:null});
             }
         });
@@ -205,7 +231,7 @@ router.get('/claim/search/:id/:input', function(req, res, next) {
 
 /*GLOBAL SEARCH CLAIM*/
 router.get('/claim/search/:input', function(req, res, next) {
-  Claim.find({$or: [{lastName: new RegExp(req.params.input, "i")}, {orNo: new RegExp(req.params.input, "i")}]}, function (err, post) {
+  Claim.find({motorNo: new RegExp(req.params.input, "i")}, function (err, post) {
     if (err) return next(err);
     res.json(post);
   });
@@ -265,6 +291,12 @@ router.post('/claim/upload', function(req,res, next){
     return res.send("Upload complete");
   })
 })
+
+router.post('/csv', upload,function(req,res){
+    console.log("upload yay");
+    console.log(req.body) // req.body should be populated by request body
+    res.send('/dashboard');
+});
 
 // router.post("'/claim/upload'", upload.array("uploads[]", 12), function (req, res) {
 //   console.log('files', req.files);

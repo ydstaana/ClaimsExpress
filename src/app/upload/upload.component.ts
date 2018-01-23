@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { UploadService } from '../upload.service';
 import { FileUploader } from 'ng2-file-upload';
 
+import { ClaimService } from '../claim.service';
+
 const URL = 'http://localhost:3000/api/claim/upload'
 @Component({
   selector: 'app-upload',
@@ -13,8 +15,9 @@ export class UploadComponent implements OnInit {
   public uploader:FileUploader;
   public token:any;
   filesToUpload: Array<File>;
+  fileData: String;
 
-  constructor(private uploadService: UploadService, private router: Router) { 
+  constructor(private uploadService: UploadService, private claimService: ClaimService, private router: Router) { 
     this.filesToUpload = [];
     this.token = uploadService.getToken();
     this.uploader = new FileUploader({url : URL, authToken : this.token});
@@ -34,11 +37,16 @@ export class UploadComponent implements OnInit {
     }
     console.log(formData);
   	this.uploadService.uploadClaim(formData).then((result) => {
-      //this.router.navigate(['/claims']);
+      // this.router.navigate(['/claims']);
     }, (err) => {
       console.log(err);
     });
   }
+
+  
+  uploadClaim() {
+    this.claimService.uploadClaim(this.fileData);
+  };
 
    fileChangeEvent(fileInput: any){
       this.filesToUpload = <Array<File>> fileInput.target.files;

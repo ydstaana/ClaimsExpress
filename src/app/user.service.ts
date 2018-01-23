@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
 import 'rxjs/add/operator/map';
 
+
 @Injectable()
 export class UserService {
 
@@ -78,5 +79,35 @@ export class UserService {
           });
     });
   }
+
+  getMyLogs() {
+    return new Promise((resolve, reject) => {
+        let headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        let authToken = localStorage.getItem('token');
+        headers.append('Authorization', authToken);
+        this.http.get('/api/user-logs', {headers : headers})
+          .subscribe(res => {
+            resolve(res);
+          }, (err) => {
+            reject(err);
+          });
+    });
+  }
+
+ getAllLogs() {
+  return new Promise((resolve, reject) => {
+      let headers = new Headers();
+      headers.append('Content-Type', 'application/json');
+      let authToken = localStorage.getItem('token');
+      headers.append('Authorization', authToken);
+      this.http.get('/api/org-logs', {headers : headers})
+        .subscribe(res => {
+          resolve(res);
+        }, (err) => {
+          reject(err);
+        });
+  });
+}
 
 }

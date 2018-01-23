@@ -1,6 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
 import 'rxjs/add/operator/map';
+// import moment from 'moment/src/moment';
+import * as moment from 'moment';
+
+
+
+// var moment = require('moment/moment');
 
 @Injectable()
 export class ClaimService {
@@ -16,6 +22,13 @@ export class ClaimService {
       this.http.get('/api/claim', {headers : headers})
         .map(res => res.json())
         .subscribe(res => {
+          // res.claimDate.moment("MMMM dd YYYY");
+          console.log(res);
+          for (var i in res) {
+            res[i].claimDate = moment(res[i].claimDate).format("L");
+            res[i].year = moment(res[i].year).format("YYYY");
+          }
+          
           resolve(res);
         }, (err) => {
           reject(err);
@@ -37,6 +50,30 @@ export class ClaimService {
           reject(err);
         });
     });
+  }
+
+
+//   router.get('/claim/search/:id/:input', function(req, res, next) {
+//   Claim.find({$or: [{lastName: new RegExp(req.params.input, "i")}, {orNo: new RegExp(req.params.input, "i")}]}, function (err, post) {
+//     if (err) return next(err);
+//     res.json(post);
+//   });
+// });
+  searchClaim(input){
+    return new Promise((resolve, reject) => {
+        let headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        let authToken = localStorage.getItem('token');
+        headers.append('Authorization', authToken);
+        this.http.get('/api/claim/search/'+ input, {headers: headers})
+          .map(res => res.json())
+          .subscribe(res => {
+            resolve(res)
+        }, (err) => {
+          reject(err);
+        });
+    });
+
   }
 
   saveClaim(data) {
@@ -86,11 +123,16 @@ export class ClaimService {
     });
   }
 
+
+//   router.post('/csv', upload,function(req,res){
+//     console.log("upload yay");
+//     console.log(req.body) // req.body should be populated by request body
+//     res.send('/dashboard');
+// });
   uploadClaim(filecsv){
     console.log("uploading");
     return new Promise((resolve, reject) => {
-      
-        this.http.post('/api/claim', filecsv)
+        this.http.post('/api/csv', filecsv)
           .map(res => res.json())
           .subscribe(res => {
             resolve(res);

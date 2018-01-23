@@ -10,8 +10,8 @@ var ClaimSchema = new mongoose.Schema({
 	year: Date,
     make: String,
     model: String,
-    motorNo: Number,
-    serialNo: Number,
+    motorNo: String,
+    serialNo: String,
     orNo: String,
     insurer: {
 		type : mongoose.Schema.Types.ObjectId,

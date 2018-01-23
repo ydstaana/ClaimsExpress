@@ -16,6 +16,9 @@ export class ClaimComponent implements OnInit {
 
   claims: any;
   claim = {};
+  hasSearched =false;
+  input: String
+  
   // String filecsv = "";
 
   constructor(private route: ActivatedRoute, private router: Router, private claimService: ClaimService) { }
@@ -34,12 +37,33 @@ export class ClaimComponent implements OnInit {
     });
   }
 
+  setSearch(){
+    this.hasSearched = true;
+    console.log("CLICKED")
+  }
+
+  getSearchClaims() {
+    this.claimService.getAllClaims().then((res) => {
+      this.claims = res;
+      this.claimService.searchClaim(this.input).then((res) => {
+        this.claims = res;
+      }, (err) => {
+        console.log(err);
+      });
+    }, (err) => {
+      console.log(err);
+    });
+   
+
+  }
+
   getClaimList() {
     this.claimService.getAllClaims().then((res) => {
       this.claims = res;
     }, (err) => {
       console.log(err);
     });
+    
   }
 
   deleteClaim(id) {
@@ -51,9 +75,9 @@ export class ClaimComponent implements OnInit {
     });
   }
 
-  uploadClaim(filecsv) {
-    this.claimService.uploadClaim(filecsv);
-    };
+  // uploadClaim(filecsv) {
+  //   this.claimService.uploadClaim(filecsv);
+  //   };
 }
 
   

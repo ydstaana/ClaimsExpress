@@ -19,6 +19,7 @@ import { ClaimDetailComponent } from './claim-detail/claim-detail.component';
 import { ClaimEditComponent } from './claim-edit/claim-edit.component';
 import { UserCreateComponent } from './user-create/user-create.component';
 import { UploadComponent } from './upload/upload.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 const ROUTES = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -28,7 +29,8 @@ const ROUTES = [
   { path: 'claim-create', component: ClaimCreateComponent },
   { path: 'claim-edit/:id', component: ClaimEditComponent },
   { path: 'claim-upload' , component: UploadComponent },
-  { path: 'user-create', component: UserCreateComponent }
+  { path: 'user-create', component: UserCreateComponent },
+  { path: 'dashboard', component: DashboardComponent }
 ];
 
 @NgModule({
@@ -41,7 +43,8 @@ const ROUTES = [
     ClaimEditComponent,
     UserCreateComponent,
     UploadComponent,
-    FileSelectDirective
+    FileSelectDirective,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,

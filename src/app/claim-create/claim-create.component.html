@@ -1,52 +1,195 @@
-<div class="container">
-  <h1>Add New Claim</h1>
-  <div class="row">
-    <div class="col-md-6">
-      <form (ngSubmit)="saveClaim()" #claimForm="ngForm">    
-        <div class="form-group">
-          <label for="name">Policy ID</label>
-          <input type="text" class="form-control" [(ngModel)]="claim.policyID" name="policyID" required>
+ 
+
+
+
+
+<!-- 
+ <h1>
+<input id="upload-input" type="file" name="uploads[]" multiple="multiple"></br> 
+<input type="file" [(ngModel)]="filecsv" accept="csv/*">
+<button class="btn btn-secondary" (click)="uploadClaim(filecsv)">Upload</button>
+</h1>   -->
+
+
+    <div id="wrapper">
+
+    <nav class="navbar-default navbar-static-side" role="navigation">
+        <div class="sidebar-collapse">
+            <ul class="nav metismenu" id="side-menu">
+                <li class="nav-header">
+                    <div class="dropdown profile-element"> <span>
+                            <!-- <img alt="image" class="img-circle" src="img/profile_small.jpg" /> -->
+                             </span>
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                            <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">David Williams</strong>
+                             </span> <span class="text-muted text-xs block">Art Director <b class="caret"></b></span> </span> </a>
+                        <ul class="dropdown-menu animated fadeInRight m-t-xs">
+                            <li><a href="profile.html">Profile</a></li>
+                            <li><a href="contacts.html">Contacts</a></li>
+                            <li><a href="mailbox.html">Mailbox</a></li>
+                            <li class="divider"></li>
+                            <li><a href="login.html">Logout</a></li>
+                        </ul>
+                    </div>
+                    <div class="logo-element">
+                        MTR+
+                    </div>
+                </li>
+                <li>
+                    <a href="index.html"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboards</span> <span class="fa arrow"></span></a>
+                </li>
+                <li>
+                    <a a [routerLink]="['/claims']"><i class="fa fa-car"></i> <span class="nav-label">Verify Claim </span><span class="label label-warning pull-right">16/24</span></a>
+                    <ul class="nav nav-second-level collapse">
+                        <li><a href="mailbox.html">Inbox</a></li>
+                        <li><a href="mail_detail.html">Email view</a></li>
+                        <li><a href="mail_compose.html">Compose email</a></li>
+                        <li><a href="email_template.html">Email templates</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a a [routerLink]="['/claims']"><i class="fa fa-cloud-upload"></i> <span class="nav-label">Upload Claim</span>  </a>
+                </li>
+                <li>
+                    <a href="widgets.html"><i class="fa fa-sign-out"></i> <span class="nav-label">Logout</span></a>
+                </li>
+                
+            </ul>
+
         </div>
-        <div class="form-group">
-            <label for="name">Insured</label>
-           Last Name <input type="text" class="form-control" name = "lastName" required label="Last Name" [(ngModel)]="claim.lastName">
-           First Name <input type="text" class="form-control"  name ="firstName" required label="First Name" [(ngModel)]="claim.firstName">
-           Middle Name <input type="text" class="form-control"  name ="middleName"  required label="Middle Name" [(ngModel)]="claim.middleName">
+    </nav>
+        <div id="page-wrapper" class="gray-bg">
+          <div class="row " >
+                <nav class="navbar navbar-static-top white-bg " role="navigation">
+                    <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
+                    <form role="search" class="navbar-form-custom" action="search_results.html">
+                        <div class="form-group">
+                            <input type="text" placeholder="Search for something..." class="form-control" name="top-search" id="top-search">
+                        </div>
+                    </form>
+                    <ul class="nav navbar-top-links navbar-right">
+                        <li>
+                            <span class="m-r-sm text-muted welcome-message">Welcome to MTR+</span>
+                        </li>
+                        <li>
+                            <a href="login.html">
+                                <i class="fa fa-sign-out"></i> Log out
+                            </a>
+                        </li>
+                    </ul>
+
+                </nav>
+            </div>
+          <div class="wrapper wrapper-content">
+              <div class="content white-bg" >
+              <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <strong> New Claim Form</strong>
+                    </div>
+                     <div class="ibox-content">
+                        <form (ngSubmit)="saveClaim()" class="form-horizontal" #claimForm="ngForm">
+                        <div class="form-group"><label class="col-sm-2 control-label">Policy ID</label>
+                        <div class="col-sm-10"><input type="text" class="form-control" [(ngModel)]="claim.policyID" name="policyID" required></div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+                         <div class="form-group"><label class="col-sm-2 control-label"> Insured </label>
+
+                            <div class="col-sm-10">
+                                <div class="row">
+                                    <div class="col-md-4"><input type="text" class="input-medium form-control" name = "lastName" required placeholder="Last Name" [(ngModel)]="claim.lastName"></div>
+                                    <div class="col-md-4"><input type="text" class="input-medium form-control"  name ="firstName" required placeholder="First Name" [(ngModel)]="claim.firstName"></div>
+                                    <div class="col-md-4"><input type="text" class="input-medium form-control"  name ="middleName"  required placeholder="Middle Name" [(ngModel)]="claim.middleName"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                    <div class="form-group"><label class="col-sm-2 control-label">Address</label>
+                        <div class="col-sm-10"><input type="text" class="form-control" [(ngModel)]="claim.address" name="address" required></div>
+                    
+                    </div> 
+                    <div class="hr-line-dashed"></div>
+                    <div class="form-group"><label class="col-sm-2 control-label"> Vehicle </label>
+
+                            <div class="col-sm-10">
+                                <div class="row">
+                                    <div class="col-md-4"><input type="text" class="form-control" name="year" required placeholder="Year" [(ngModel)]="claim.year"></div>
+                                    <div class="col-md-4"><input type="text" class="form-control" name="make" required placeholder="Make" [(ngModel)]="claim.make"></div>
+                                    <div class="col-md-4"><input type="text" class="form-control" name="model" required placeholder="Model" [(ngModel)]="claim.model"></div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <div class="form-group"><label class="col-sm-2 control-label"> </label>
+                            <div class="col-sm-10">
+                                <div class="row">
+                                    <div class="col-md-4"><input type="text" class="form-control" name="motorNo" required placeholder="Motor No." [(ngModel)]="claim.motorNo"></div>
+                                    <div class="col-md-4"><input type="text" class="form-control" name="serialNo" required placeholder="Serial No." [(ngModel)]="claim.serialNo"></div>
+                                    <div class="col-md-4"><input type="text" class="form-control" name="orNo" required placeholder="OR/CR No." [(ngModel)]="claim.orNo"></div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group"><label class="col-sm-2 control-label">Date of Loss</label>
+                            <div class="col-sm-10"><input type="text" class="form-control" [(ngModel)]="claim.dateOfLoss" name="dateOfLoss" required></div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group"><label class="col-sm-2 control-label">Situation of Loss</label>
+                            <div class="col-sm-10"><input type="text" class="form-control" [(ngModel)]="claim.situationOfLoss" name="situationOfLoss" required></div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group"><label class="col-sm-2 control-label">Nature of Loss</label>
+                            <div class="col-sm-10"><select class="form-control m-b"  [(ngModel)]="claim.natureOfLoss" name="natureOfLoss" required>
+                                <option>option 1</option>
+                                <option>option 2</option>
+                                <option>option 3</option>
+                                <option>option 4</option>
+                            </select>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>            
+                        <div class="form-group"><label class="col-sm-2 control-label"> Settlement </label>
+
+                            <div class="col-sm-10">
+                                <div class="row">
+                                    <div class="col-md-6"><input type="text" class="form-control" placeholder ="Date"  name="dateOfSettlement" required placeholder="Date" [(ngModel)]="claim.dateOfSettlement"></div>
+                                    <div class="col-md-6"><input type="text" class="form-control"  name="amount" required placeholder="Amount" [(ngModel)]="claim.amount"></div>
+                                   
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group"><label class="col-sm-2 control-label"></label>
+                            <div class="col-sm-10">
+                                <button type="submit" class="btn btn-default"[routerLink]="['/claims']" >Cancel</button>
+                                <button type="submit" class="btn btn-primary" [disabled]="!claimForm.form.valid">Save Changes</button>
+                            </div>
+                        </div>
+                        
+                        
+                        
+                    <!-- 
+                  <input type="text" class="form-control" >
+
+                 -->   
+                  
+                  
+              </form>
+              
           </div>
-        <div class="form-group">
-          <label for="name">Address</label>
-          <input type="text" class="form-control" [(ngModel)]="claim.address" name="address" required>
+          </div>
+      </div>
+          
+
+          <div class="footer">
+                <div class="pull-right">
+                    <strong>MTR+</strong> 
+                </div>
+              <div>
+                  <strong>Powered by </strong> Specter.ph
+              </div>
+            </div>
+            </div>
         </div>
-        <div class="form-group">
-            <label for="name">Vehicle</label>
-            Year <input type="text" class="form-control" name="year" required label="Year" [(ngModel)]="claim.year">
-            Make <input type="text" class="form-control" name="make" required label="Make" [(ngModel)]="claim.make">
-            Model <input type="text" class="form-control" name="model" required label="Model" [(ngModel)]="claim.model">
-            Motor No.<input type="text" class="form-control" name="motorNo" required label="Motor No." [(ngModel)]="claim.motorNo">
-            Serial No.<input type="text" class="form-control" name="serialNo" required label="Serial No." [(ngModel)]="claim.serialNo">
-            OR/CR No.<input type="text" class="form-control" name="orNo" required label="OR/CR No." [(ngModel)]="claim.orNo">    
-        </div>
-        <div class="form-group">
-          <label for="name">Date of Loss</label>
-          <input type="text" class="form-control" [(ngModel)]="claim.dateOfLoss" name="dateOfLoss" required>
-        </div>
-        <div class="form-group">
-          <label for="name">Situation of Loss</label>
-          <input type="text" class="form-control" [(ngModel)]="claim.situationOfLoss" name="situationOfLoss" required>
-        </div>
-        <div class="form-group">
-          <label for="name">Nature of Loss</label>
-          <input type="text" class="form-control" [(ngModel)]="claim.natureOfLoss" name="natureOfLoss" required>
-        </div>
-        <div class="form-group">
-            <label for="name">Settlement</label>
-            Date of Settlement<input type="text" class="form-control"  name="dateOfSettlement" required label="Date Of Settlement" [(ngModel)]="claim.dateOfSettlement">
-            Amount<input type="text" class="form-control"  name="amount" required label="Amount" [(ngModel)]="claim.amount">
-        </div>
-        <div class="form-group">
-          <button type="submit" class="btn btn-success" [disabled]="!claimForm.form.valid">Save</button>
-        </div>
-      </form>
     </div>
-  </div>
-</div>
