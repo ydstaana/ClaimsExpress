@@ -7,6 +7,7 @@ import { LoginService } from './login.service';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { SelectModule } from 'angular2-select';
+import { MyDatePickerModule } from 'mydatepicker';
 import { HttpModule } from '@angular/http';
 import { FileSelectDirective, FileDropDirective } from 'ng2-file-upload';
 
@@ -21,6 +22,7 @@ import { ClaimEditComponent } from './claim-edit/claim-edit.component';
 import { UserCreateComponent } from './user-create/user-create.component';
 import { UploadComponent } from './upload/upload.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { MyclaimsComponent } from './myclaims/myclaims.component';
 
 const ROUTES = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -30,6 +32,7 @@ const ROUTES = [
   { path: 'claim-create', component: ClaimCreateComponent },
   { path: 'claim-edit/:id', component: ClaimEditComponent },
   { path: 'claim-upload' , component: UploadComponent },
+  { path: 'myclaims' , component: MyclaimsComponent },
   { path: 'user-create', component: UserCreateComponent },
   { path: 'dashboard', component: DashboardComponent }
 ];
@@ -46,6 +49,7 @@ const ROUTES = [
     UploadComponent,
     FileSelectDirective,
     DashboardComponent,
+    MyclaimsComponent,
     
   ],
   imports: [
@@ -53,6 +57,7 @@ const ROUTES = [
     FormsModule,
     HttpModule,
     SelectModule,
+    MyDatePickerModule,
     RouterModule.forRoot(ROUTES)
   ],
   providers: [UserService, ClaimService, UploadService, {provide: LocationStrategy, useClass: HashLocationStrategy}],

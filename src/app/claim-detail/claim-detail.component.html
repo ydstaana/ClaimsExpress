@@ -1,8 +1,146 @@
-<div class="container">
-  <h1>NAME </h1>
-  <h3> {{ claim.name }}</h3>
-  <dl class="list">
-    <dt>license</dt>
-    <dd>{{ claim.license }}</dd>
-  </dl>
-</div>
+    <div id="wrapper">
+
+    <nav class="navbar-default navbar-static-side" role="navigation">
+        <div class="sidebar-collapse">
+            <ul class="nav metismenu" id="side-menu">
+                <li class="nav-header">
+                    <div class="dropdown profile-element"> <span>
+                            <!-- <img alt="image" class="img-circle" src="img/profile_small.jpg" /> -->
+                             </span>
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                            <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">David Williams</strong>
+                             </span> <span class="text-muted text-xs block">Art Director <b class="caret"></b></span> </span> </a>
+                        <ul class="dropdown-menu animated fadeInRight m-t-xs">
+                            <li><a href="profile.html">Profile</a></li>
+                            <li><a href="contacts.html">Contacts</a></li>
+                            <li><a href="mailbox.html">Mailbox</a></li>
+                            <li class="divider"></li>
+                            <li><a href="login.html">Logout</a></li>
+                        </ul>
+                    </div>
+                    <div class="logo-element">
+                        MTR+
+                    </div>
+                </li>
+                <li>
+                    <a [routerLink]="['/dashboard']"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboards</span> <span class="fa arrow"></span></a>
+                </li>
+                <li>
+                    <a  [routerLink]="['/claims']"><i class="fa fa-car"></i> <span class="nav-label">Verify Claim </span><span class="label label-warning pull-right">16/24</span></a>
+                    <ul class="nav nav-second-level collapse">
+                        <li><a href="mailbox.html">Inbox</a></li>
+                        <li><a href="mail_detail.html">Email view</a></li>
+                        <li><a href="mail_compose.html">Compose email</a></li>
+                        <li><a href="email_template.html">Email templates</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a a [routerLink]="['/myclaims']"><i class="fa fa-cloud-upload"></i> <span class="nav-label">Upload Claim</span>  </a>
+                </li>
+                <li>
+                    <a href="widgets.html"><i class="fa fa-sign-out"></i> <span class="nav-label">Logout</span></a>
+                </li>
+                
+            </ul>
+
+        </div>
+    </nav>
+        <div id="page-wrapper" class="gray-bg">
+          <div class="row " >
+                <nav class="navbar navbar-static-top white-bg " role="navigation">
+                    
+                    <ul class="nav navbar-top-links navbar-right">
+                        <li>
+                            <span class="m-r-sm text-muted welcome-message">Welcome to MTR+</span>
+                        </li>
+                        <li>
+                            <a href="login.html">
+                                <i class="fa fa-sign-out"></i> Log out
+                            </a>
+                        </li>
+                    </ul>
+
+                </nav>
+            </div>
+          <div class="wrapper wrapper-content">
+              <div class="content white-bg" >
+              <div class="ibox float-e-margins col-lg-8">
+                    <div class="ibox-title">
+                        <strong> Claim Form for {{claim.motorNo}} </strong>
+                    </div>
+                     <div class="ibox-content">
+                    <ul class="list-group clear-list ">
+                        <li class="list-group-item fist-item">
+                            <span class="pull-right"> {{claim.policyID}} </span>
+                            <strong>Policy ID</strong>
+                        </li>
+                        <li class="list-group-item">
+                            <span class="pull-right">{{claim.firstName + claim.lastName}}  </span>
+                                <strong>Insured </strong>
+                        </li>
+                        <li class="list-group-item">
+                            <span class="pull-right"> {{claim.address}}  </span>
+                            <strong> Address  </strong>
+                        </li>
+                        <li class="list-group-item">
+                            <span class="pull-right"> {{claim.year}}  </span>
+                            <strong>Vehicle Year</strong>
+                        </li>
+                        <li class="list-group-item">
+                            <span class="pull-right"> {{claim.make}} </span>
+                            <strong>  Vehicle Make</strong>
+                        </li>
+                            <li class="list-group-item">
+                            <span class="pull-right"> {{claim.model}}  </span>
+                            <strong>   Vehicle Model</strong>
+                        </li>
+                        <li class="list-group-item">
+                            <span class="pull-right"> {{claim.motorNo}}  </span>
+                            <strong>   Vehicle Motor No.</strong>
+                        </li>
+                            <li class="list-group-item">
+                            <span class="pull-right"> {{claim.serialNo}} </span>
+                            <strong>   Vehicle Serial No.</strong>
+                        </li>
+                        <li class="list-group-item">
+                            <span class="pull-right"> {{claim.orNo}}  </span>
+                    <strong>          Vehicle OR/CR No.</strong>
+                        </li>
+                            <li class="list-group-item">
+                            <span class="pull-right"> {{claim.dateOfLoss}}  </span>
+                            <strong> Date of Loss</strong>
+                        </li>
+                            <li class="list-group-item">
+                            <span class="pull-right"> {{claim.situationOfLoss}} </span>
+                        <strong>    Situation of Loss</strong>
+                        </li>
+                        <li class="list-group-item">
+                            <span class="pull-right"> {{claim.natureOfLoss}} </span>
+                        <strong>    Nature of Loss</strong>
+                        </li>
+                            <li class="list-group-item">
+                            <span class="pull-right"> {{claim.dateOfSettlement}}  </span>
+                        <strong>     Settlement Date</strong>
+                        </li>
+                        <li class="list-group-item">
+                            <span class="pull-right"> {{claim.amount}}  </span>
+                        <strong>    Settlement Amount</strong>
+                        </li>
+                    </ul>
+          </div>
+          </div>
+        <div class="footer">
+                <div class="pull-right">
+                    <strong>MTR+</strong> 
+                </div>
+              <div>
+                  <strong>Powered by </strong> Specter.ph
+              </div>
+            </div>
+              </div>
+          
+          </div>
+            
+        </div>
+        
+    </div>

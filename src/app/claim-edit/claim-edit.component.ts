@@ -16,6 +16,7 @@ export class ClaimEditComponent implements OnInit {
   ngOnInit() {
     this.getClaim(this.route.snapshot.params['id']);
   }
+  
 
   getClaim(id) {
     this.claimService.showClaim(id).then((res) => {

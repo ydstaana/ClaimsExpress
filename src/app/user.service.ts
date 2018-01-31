@@ -15,6 +15,8 @@ export class UserService {
         .map(res => res.json())
         .subscribe(res => {
           localStorage.setItem('token', res.token);
+          console.log("heyhey" + JSON.stringify(res));
+          localStorage.setItem('currentUser', res.id )
           if (res.token == undefined){
             // do nothing
           }
@@ -28,28 +30,11 @@ export class UserService {
     });
   }
 
-  //  getAllClaims() {
-  //   return new Promise((resolve, reject) => {
-  //     let headers = new Headers();
-  //     headers.append('Content-Type', 'application/json');
-  //     let authToken = localStorage.getItem('token');
-  //     headers.append('Authorization', authToken);
-  //     this.http.get('/api/claim', {headers : headers})
-  //       .map(res => res.json())
-  //       .subscribe(res => {
-  //         // res.claimDate.moment("MMMM dd YYYY");
-  //         console.log(res);
-  //         for (var i in res) {
-  //           res[i].claimDate = moment(res[i].claimDate).format("L");
-  //           res[i].year = moment(res[i].year).format("YYYY");
-  //         }
-          
-  //         resolve(res);
-  //       }, (err) => {
-  //         reject(err);
-  //       });
-  //   });
-  // }
+  getCurrentUser (){
+    console.log(localStorage.getItem('currentUser'));
+    return localStorage.getItem('currentUser');
+
+  }
 
 
   getAllUsers() {

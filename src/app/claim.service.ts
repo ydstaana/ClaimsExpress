@@ -13,6 +13,38 @@ export class ClaimService {
 
   constructor(private http: Http) { }
 
+//   router.get('/claim/search/:id/:input', function(req, res, next) {
+//   Claim.find({$and: [{insurer: req.params.id}, {motorNo: new RegExp(req.params.input, "i")}]}, function (err, post) {
+//     if (err) return next(err);
+//     res.json(post);
+//   });
+// });
+
+  getAllMyClaims (id) {
+    return new Promise((resolve, reject) => {
+      let headers = new Headers();
+      headers.append('Content-Type', 'application/json');
+      let authToken = localStorage.getItem('token');
+      headers.append('Authorization', authToken);
+      this.http.get('/api/user/claim/'+ id, {headers : headers})
+        .map(res => res.json())
+        .subscribe(res => {
+          // res.claimDate.moment("MMMM dd YYYY");
+          
+          for (var i in res) {
+            console.log("HUY" + res[i]);
+            res[i].claimDate = moment(res[i].claimDate).format("L");
+            res[i].year = moment(res[i].year).format("YYYY");
+          }
+          
+          resolve(res);
+        }, (err) => {
+          reject(err);
+        });
+    });
+
+  }
+
   getAllClaims() {
     return new Promise((resolve, reject) => {
       let headers = new Headers();
@@ -83,6 +115,9 @@ export class ClaimService {
         headers.append('Content-Type', 'application/json');
         let authToken = localStorage.getItem('token');
         headers.append('Authorization', authToken);
+        console.log(data);
+        data.dateOfLoss = data.dateOfLoss.date;
+        data.dateOfSettlement = data.dateOfSettlement.date;
         this.http.post('/api/claim', data, {headers : headers})
           .map(res => res.json())
           .subscribe(res => {
