@@ -115,9 +115,9 @@ export class ClaimService {
         headers.append('Content-Type', 'application/json');
         let authToken = localStorage.getItem('token');
         headers.append('Authorization', authToken);
+        data.dateOfLoss = moment(data.dateOfLoss.formatted).format("MM-DD-YYYY");
+        data.dateOfSettlement = moment(data.dateOfSettlement.formatted).format("MM-DD-YYYY");
         console.log(data);
-        data.dateOfLoss = data.dateOfLoss.date;
-        data.dateOfSettlement = data.dateOfSettlement.date;
         this.http.post('/api/claim', data, {headers : headers})
           .map(res => res.json())
           .subscribe(res => {

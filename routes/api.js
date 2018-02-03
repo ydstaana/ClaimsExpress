@@ -257,6 +257,7 @@ router.get('/claim/search/:input', function(req, res, next) {
 /* SAVE Claim */
 router.post('/claim', function(req, res, next) {
   req.body.insurer = req.decoded.id;
+  console.log(req.body.dateOfLoss);
   Claim.create(req.body, function (err, post) {
     if (err) return next(err);
     var log = {

@@ -1,23 +1,23 @@
 var mongoose = require('mongoose')
 
 var ClaimSchema = new mongoose.Schema({
-	claimDate:  { type: Date, default: Date.now },
 	policyID: Number,
 	lastName: String,
     firstName: String,
 	middleName: String,
-	dateOfSettlement: { type: Date },
 	address: String,
-	amount: Number,
-	year: Date,
     make: String,
     model: String,
     motorNo: String,
     serialNo: String,
-	orNo: String,
+	dateOfLoss: { type: Date, default: Date.now },
 	situationOfLoss: String,
-	dateOfLoss: { type: Date },
 	natureOfLoss: String,
+	dateOfSettlement: { type: Date, default: Date.now },
+	claimDate:  { type: Date, default: Date.now },
+	amount: Number,
+	year: String,
+	orNo: String,
     insurer: {
 		type : mongoose.Schema.Types.ObjectId,
 		ref: 'User'
