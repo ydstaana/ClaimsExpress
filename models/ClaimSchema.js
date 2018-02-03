@@ -6,7 +6,8 @@ var ClaimSchema = new mongoose.Schema({
 	lastName: String,
     firstName: String,
 	middleName: String,
-	dateOfSettlement: Date,
+	dateOfSettlement: { type: Date },
+	address: String,
 	amount: Number,
 	year: Date,
     make: String,
@@ -15,7 +16,7 @@ var ClaimSchema = new mongoose.Schema({
     serialNo: String,
 	orNo: String,
 	situationOfLoss: String,
-	dateOfLoss: Date,
+	dateOfLoss: { type: Date },
 	natureOfLoss: String,
     insurer: {
 		type : mongoose.Schema.Types.ObjectId,

@@ -59,6 +59,7 @@ router.get('/login/:username/:password', function(req, res, next) {
 
 
          res.json({
+            id : user._id, 
             success: true,
             message : "Token generated",
             token : token
@@ -232,7 +233,14 @@ router.get('/claim/:id', function(req, res, next) {
 
 /*LOCAL SEARCH CLAIM GIVEN ID AND INPUT*/
 router.get('/claim/search/:id/:input', function(req, res, next) {
-  Claim.find({insurer: req.params.id,$or: [{lastName: new RegExp(req.params.input, "i")}, {orNo: new RegExp(req.params.input, "i")}]}, function (err, post) {
+  Claim.find({$and: [{insurer: req.params.id}, {motorNo: new RegExp(req.params.input, "i")}]}, function (err, post) {
+    if (err) return next(err);
+    res.json(post);
+  });
+});
+
+router.get('/user/claim/:id', function(req, res, next) {
+  Claim.find({insurer: req.params.id}, function (err, post) {
     if (err) return next(err);
     res.json(post);
   });

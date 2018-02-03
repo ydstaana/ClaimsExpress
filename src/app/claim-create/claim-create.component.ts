@@ -17,6 +17,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ClaimService } from '../claim.service';
+import { IMyDpOptions } from 'mydatepicker';
 
 @Component({
   selector: 'app-claim-create',
@@ -24,6 +25,10 @@ import { ClaimService } from '../claim.service';
   styleUrls: ['./claim-create.component.css']
 })
 export class ClaimCreateComponent implements OnInit {
+    public myDatePickerOptions: IMyDpOptions = {
+          // other options...
+          dateFormat: 'mm/dd/yyyy',
+      };
 
   claim = {};
 
