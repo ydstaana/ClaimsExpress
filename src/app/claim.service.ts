@@ -77,6 +77,10 @@ export class ClaimService {
         this.http.get('/api/claim/' + id, {headers : headers})
           .map(res => res.json())
           .subscribe(res => {
+            res.claimDate = moment(res.claimDate).format("L");
+            res.year = moment(res.year).format("YYYY");
+            res.dateOfLoss = moment(res.dateOfLoss.formatted).format("MM-DD-YYYY");
+            res.dateOfSettlement = moment(res.dateOfSettlement.formatted).format("MM-DD-YYYY");
             resolve(res)
         }, (err) => {
           reject(err);
@@ -100,6 +104,10 @@ export class ClaimService {
         this.http.get('/api/claim/search/'+ input, {headers: headers})
           .map(res => res.json())
           .subscribe(res => {
+            res.claimDate = moment(res.claimDate).format("L");
+            res.year = moment(res.year).format("YYYY");
+            res.dateOfLoss = moment(res.dateOfLoss.formatted).format("MM-DD-YYYY");
+            res.dateOfSettlement = moment(res.dateOfSettlement.formatted).format("MM-DD-YYYY");
             resolve(res)
         }, (err) => {
           reject(err);
