@@ -79,8 +79,8 @@ export class ClaimService {
           .subscribe(res => {
             res.claimDate = moment(res.claimDate).format("L");
             res.year = moment(res.year).format("YYYY");
-            res.dateOfLoss = moment(res.dateOfLoss.formatted).format("MM-DD-YYYY");
-            res.dateOfSettlement = moment(res.dateOfSettlement.formatted).format("MM-DD-YYYY");
+            res.dateOfLoss = moment(res.dateOfLoss).format("MM-DD-YYYY");
+            res.dateOfSettlement = moment(res.dateOfSettlement).format("MM-DD-YYYY");
             resolve(res)
         }, (err) => {
           reject(err);
@@ -106,8 +106,9 @@ export class ClaimService {
           .subscribe(res => {
             res.claimDate = moment(res.claimDate).format("L");
             res.year = moment(res.year).format("YYYY");
-            res.dateOfLoss = moment(res.dateOfLoss.formatted).format("MM-DD-YYYY");
-            res.dateOfSettlement = moment(res.dateOfSettlement.formatted).format("MM-DD-YYYY");
+            res.dateOfLoss = moment(res.dateOfLoss).format("MM-DD-YYYY");
+            res.dateOfSettlement = moment(res.dateOfSettlement).format("MM-DD-YYYY");
+            console.log("HI", res);
             resolve(res)
         }, (err) => {
           reject(err);
@@ -123,8 +124,8 @@ export class ClaimService {
         headers.append('Content-Type', 'application/json');
         let authToken = localStorage.getItem('token');
         headers.append('Authorization', authToken);
-        data.dateOfLoss = moment(data.dateOfLoss.formatted).format("MM-DD-YYYY");
-        data.dateOfSettlement = moment(data.dateOfSettlement.formatted).format("MM-DD-YYYY");
+        data.dateOfLoss = moment(data.dateOfLoss).format("MM-DD-YYYY");
+        data.dateOfSettlement = moment(data.dateOfSettlement).format("MM-DD-YYYY");
         console.log(data);
         this.http.post('/api/claim', data, {headers : headers})
           .map(res => res.json())

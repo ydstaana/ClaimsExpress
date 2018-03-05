@@ -54,13 +54,21 @@ export class ClaimComponent implements OnInit {
     }, (err) => {
       console.log(err);
     });
+
+  
    
+
+  }
+
+  searchClaimEmpty() {
+      
 
   }
 
   getClaimList() {
     this.claimService.getAllClaims().then((res) => {
       this.claims = res;
+      console.log(res);
     }, (err) => {
       console.log(err);
     });
