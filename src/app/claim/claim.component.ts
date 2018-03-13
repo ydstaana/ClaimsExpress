@@ -60,10 +60,6 @@ export class ClaimComponent implements OnInit {
 
   }
 
-  searchClaimEmpty() {
-      
-
-  }
 
   getClaimList() {
     this.claimService.getAllClaims().then((res) => {
